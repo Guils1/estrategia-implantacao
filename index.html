@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panorama Implantação DPSP + PedBot</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f3;
+      color: #1a1a18;
+      padding: 2rem;
+      font-size: 14px;
+      line-height: 1.6
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: .2rem;
+      color: #1a1a18
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #73726c;
+      margin-bottom: 2rem
+    }
+
+    .s {
+      margin-bottom: 1.75rem
+    }
+
+    .st {
+      font-size: 11px;
+      font-weight: 500;
+      color: #73726c;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: .75rem;
+      padding-bottom: .4rem;
+      border-bottom: .5px solid #e0dfd6
+    }
+
+    .card {
+      background: #fff;
+      border: .5px solid #e0dfd6;
+      border-radius: 12px;
+      padding: 1rem 1.25rem
+    }
+
+    .csm {
+      background: #f5f5f3;
+      border-radius: 8px;
+      padding: .75rem 1rem
+    }
+
+    .g2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px
+    }
+
+    .g3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 20px
+    }
+
+    .bi {
+      background: #e6f1fb;
+      color: #0c447c
+    }
+
+    .bg {
+      background: #eaf3de;
+      color: #27500a
+    }
+
+    .ba {
+      background: #faeeda;
+      color: #633806
+    }
+
+    .br {
+      background: #fcebeb;
+      color: #791f1f
+    }
+
+    .bpurple {
+      background: #eeedfe;
+      color: #3c3489
+    }
+
+    .tag {
+      font-size: 11px;
+      background: #f5f5f3;
+      color: #5f5e5a;
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin: 2px;
+      display: inline-block
+    }
+
+    .slot {
+      border-left: 3px solid;
+      border-radius: 0 8px 8px 0;
+      padding: .55rem .75rem;
+      margin-bottom: .4rem;
+      background: #f5f5f3
+    }
+
+    .slot:last-of-type {
+      margin-bottom: 0
+    }
+
+    .sb {
+      border-color: #378ADD
+    }
+
+    .sg {
+      border-color: #639922
+    }
+
+    .sa {
+      border-color: #BA7517
+    }
+
+    .sr {
+      border-color: #E24B4A
+    }
+
+    .sp {
+      border-color: #7F77DD
+    }
+
+    .div {
+      height: .5px;
+      background: #e0dfd6;
+      margin: 1.5rem 0
+    }
+
+    .mv {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.1;
+      color: #1a1a18
+    }
+
+    .ml {
+      font-size: 12px;
+      color: #73726c;
+      margin-top: 2px
+    }
+
+    .oh {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      gap: .5rem
+    }
+
+    .oh:hover .oh-title {
+      color: #378ADD
+    }
+
+    .oh-title {
+      font-size: 13px;
+      font-weight: 500;
+      transition: color .15s
+    }
+
+    .ob {
+      display: none;
+      margin-top: .75rem
+    }
+
+    .ob.open {
+      display: block
+    }
+
+    .ch {
+      transition: transform .2s;
+      display: inline-block;
+      font-size: 10px;
+      color: #b4b2a9;
+      flex-shrink: 0
+    }
+
+    .ch.open {
+      transform: rotate(90deg)
+    }
+
+    table {
+      width: 100%;
+      font-size: 12px;
+      border-collapse: collapse
+    }
+
+    td,
+    th {
+      padding: 5px 8px;
+      text-align: left;
+      vertical-align: top
+    }
+
+    th {
+      font-weight: 500;
+      color: #73726c;
+      border-bottom: .5px solid #e0dfd6;
+      white-space: nowrap
+    }
+
+    tr:not(:last-child) td {
+      border-bottom: .5px solid #e0dfd6
+    }
+
+    .step {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+      margin-bottom: .2rem
+    }
+
+    .step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 32px;
+      min-width: 32px
+    }
+
+    .step-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 500;
+      flex-shrink: 0
+    }
+
+    .step-line {
+      flex: 1;
+      width: 1.5px;
+      background: #e0dfd6;
+      margin: 3px 0
+    }
+
+    .step-body {
+      padding-bottom: .6rem;
+      flex: 1
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1a1a18
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: #5f5e5a;
+      margin-top: 3px;
+      line-height: 1.5
+    }
+
+    .warn {
+      background: #faeeda;
+      border: .5px solid #f0c080;
+      border-radius: 8px;
+      padding: .5rem .8rem;
+      font-size: 12px;
+      color: #633806;
+      margin-top: .4rem
+    }
+
+    .info {
+      background: #e6f1fb;
+      border: .5px solid #85b7eb;
+      border-radius: 8px;
+      padding: .5rem .8rem;
+      font-size: 12px;
+      color: #0c447c;
+      margin-top: .4rem
+    }
+
+    .danger {
+      background: #fcebeb;
+      border: .5px solid #f09595;
+      border-radius: 8px;
+      padding: .5rem .8rem;
+      font-size: 12px;
+      color: #791f1f;
+      margin-top: .4rem
+    }
+
+    .devbadge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #eeedfe;
+      color: #3c3489;
+      border: .5px solid #afa9ec
+    }
+
+    .deadline {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #fcebeb;
+      color: #791f1f;
+      border: .5px solid #f09595
+    }
+
+    .tl {
+      display: flex;
+      gap: 0;
+      margin-top: .5rem
+    }
+
+    .tls {
+      flex: 1;
+      min-width: 52px;
+      text-align: center;
+      font-size: 10px;
+      color: #73726c;
+      padding: 4px 2px
+    }
+
+    .tls.act {
+      font-weight: 500;
+      color: #1a1a18
+    }
+
+    .tlb {
+      height: 8px;
+      border-radius: 3px;
+      margin: 4px 2px 2px
+    }
+
+    .altbox {
+      border: .5px dashed #b4b2a9;
+      border-radius: 8px;
+      padding: .75rem 1rem;
+      margin-top: .75rem
+    }
+
+    .bm-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: .6rem 0;
+      border-bottom: .5px solid #e0dfd6
+    }
+
+    .bm-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0
+    }
+
+    .bm-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0
+    }
+
+    .atime {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #f5f5f3;
+      color: #5f5e5a;
+      font-family: monospace;
+      margin-bottom: .5rem
+    }
+
+    .acard {
+      background: #fff;
+      border: .5px solid #e0dfd6;
+      border-radius: 10px;
+      padding: .75rem
+    }
+
+    .afree {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      min-height: 60px;
+      border: .5px dashed #e0dfd6;
+      border-radius: 8px;
+      padding: .5rem
+    }
+
+    .onda-meta {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap
+    }
+
+    .sep {
+      height: .5px;
+      background: #e0dfd6;
+      margin: .6rem 0
+    }
+
+    @media(max-width:680px) {
+
+      .g2,
+      .g3 {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>Panorama de Implantação</h1>
+    <div class="subtitle">DPSP + PedBot · Estratégia completa · Atualizado em 21/03/2026</div>
+
+    <!-- TIMELINE -->
+    <div class="s">
+      <div class="st">Timeline do rollout</div>
+      <div style="overflow-x:auto">
+        <div class="tl">
+          <div class="tls act">
+            <div>Mar</div>
+            <div class="tlb" style="background:#E24B4A"></div>
+            <div><strong>BMs</strong></div>
+          </div>
+          <div class="tls act">
+            <div>10/Abr</div>
+            <div class="tlb" style="background:#1D9E75"></div>
+            <div><strong>Piloto</strong><br>55</div>
+          </div>
+          <div class="tls">
+            <div>Abr/Mai</div>
+            <div class="tlb" style="background:#378ADD"></div>
+            <div>1ª Onda<br>134</div>
+          </div>
+          <div class="tls">
+            <div>Mai/Jun</div>
+            <div class="tlb" style="background:#7F77DD"></div>
+            <div>2ª Onda<br>267</div>
+          </div>
+          <div class="tls">
+            <div>Jun/Jul</div>
+            <div class="tlb" style="background:#EF9F27"></div>
+            <div>3ª Onda<br>300</div>
+          </div>
+          <div class="tls">
+            <div>Jul/Ago</div>
+            <div class="tlb" style="background:#D4537E"></div>
+            <div>4ª Onda<br>316</div>
+          </div>
+          <div class="tls">
+            <div>Ago</div>
+            <div class="tlb" style="background:#D85A30"></div>
+            <div>5ª Onda<br>286</div>
+          </div>
+          <div class="tls">
+            <div>Set</div>
+            <div class="tlb" style="background:#888780"></div>
+            <div>6ª Onda<br>260</div>
+          </div>
+        </div>
+      </div>
+      <div class="g2" style="margin-top:10px">
+        <div class="csm">
+          <div class="mv">1.618</div>
+          <div class="ml">Total de lojas no rollout</div>
+        </div>
+        <div class="csm">
+          <div class="mv">7 ondas</div>
+          <div class="ml">Piloto + 6 ondas de expansão</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- BMs -->
+    <div class="s">
+      <div class="st">Criação dos BMs</div>
+      <div class="card">
+        <div
+          style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem">
+          <div style="font-size:13px;font-weight:500">Responsabilidade DPSP</div>
+          <span class="deadline">Prazo: 27/03 · Limite 31/03</span>
+        </div>
+        <div class="bm-row">
+          <div class="bm-dot" style="background:#378ADD"></div>
+          <div>
+            <div style="font-size:12px;font-weight:500">80 BMs criados pela DPSP e compartilhados com PedBot</div>
+            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Entrega até 27/03, impreterivelmente até 31/03. Sem
+              esses BMs, o piloto de 10/04 não acontece.</div>
+          </div>
+        </div>
+        <div class="bm-row">
+          <div class="bm-dot" style="background:#378ADD"></div>
+          <div>
+            <div style="font-size:12px;font-weight:500">1 email @drogariasaopaulo.com.br</div>
+            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Para verificações Meta do lado PedBot. Pode ser o
+              verify.meta já existente.</div>
+            <div style="margin-top:.3rem"><span class="tag">verify.meta disponível</span></div>
+          </div>
+        </div>
+        <div class="bm-row">
+          <div class="bm-dot" style="background:#378ADD"></div>
+          <div>
+            <div style="font-size:12px;font-weight:500">1 email @drogariaspacheco.com.br</div>
+            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Mesma finalidade. Pode ser o verify.meta já
+              existente.</div>
+            <div style="margin-top:.3rem"><span class="tag">verify.meta disponível</span></div>
+          </div>
+        </div>
+        <div class="sep"></div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:.75rem">Estratégias PedBot</div>
+        <div class="bm-row">
+          <div class="bm-dot" style="background:#1D9E75"></div>
+          <div>
+            <div style="font-size:12px;font-weight:500">Criação via emails de domínio próprio com alias</div>
+            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Permite volume alto de contas Facebook.
+              Dificuldade: necessidade de número de telefone no cadastro.</div>
+            <div style="margin-top:.3rem"><span class="tag">estratégia principal</span></div>
+          </div>
+        </div>
+        <div class="bm-row">
+          <div class="bm-dot" style="background:#1D9E75"></div>
+          <div>
+            <div style="font-size:12px;font-weight:500">Expansão de limites via Vonage</div>
+            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Acompanhamento conjunto com Vonage para aumentar
+              quantidade de números por BM. Pré-aprovação obtida. Aplicado em BMs verificados com alta qualidade,
+              separados para DSP e DP.</div>
+            <div style="margin-top:.3rem"><span class="tag">pré-aprovação obtida</span><span class="tag">BMs DSP
+                separados de DP</span></div>
+          </div>
+        </div>
+        <div class="bm-row">
+          <div class="bm-dot" style="background:#E24B4A"></div>
+          <div>
+            <div style="font-size:12px;font-weight:500">Compra de contas</div>
+            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Mantida como última opção. Risco: irregularidade
+              pode ser detectada antes ou depois da ativação, números podem ser banidos sem aviso prévio.</div>
+            <div class="danger">Evitar ao máximo. Usar apenas se todas as outras opções falharem.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="s">
+      <div class="st">Sincronização do histórico</div>
+      <div class="warn" style="margin-bottom:.75rem">A sincronização acontece sempre no D-1 (dia anterior à
+        implantação). Apagar o número do app e entrar na call são etapas do dia D.</div>
+      <div class="card">
+        <div
+          style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem">
+          <div style="font-size:13px;font-weight:500">Opção A -> bot autônomo</div>
+          <span class="devbadge">em desenvolvimento</span>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#f5f5f3;color:#5f5e5a">1</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Gerente manda mensagem do número da loja no D-1</div>
+            <div class="step-desc">O próprio número a ser ativado no dia seguinte inicia a conversa. Bot valida contra a
+              lista de ativação — se não constar, ignora silenciosamente.</div>
+            <div class="warn">A mensagem deve sair do celular da loja, não do celular pessoal do gerente.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#f5f5f3;color:#5f5e5a">2</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Bot apresenta menu, orienta e envia QR code</div>
+            <div class="step-desc">Gerente seleciona sincronizar histórico. Bot instrui manter o app aberto, confirma se
+              pode seguir, e envia o QR code para o mesmo número.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#f5f5f3;color:#5f5e5a">3</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Gerente escaneia, bot aguarda 30s e confirma</div>
+            <div class="step-desc">Se não conectou: bot orienta apagar conexão e envia novo QR, sem limite de
+              tentativas. Se conectou: PedBot inicia sync remotamente via lib WhatsApp (~180 dias).</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#eaf3de;color:#27500a">4</div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Sync concluída, painel atualizado e atendimento encerrado</div>
+            <div class="step-desc">Número marcado como sincronizado no controle interno. Se a conexão cair durante a
+              sync, bot avisa e retoma o loop do QR.</div>
+            <div style="margin-top:.4rem"><span class="tag">~180 dias de histórico</span><span class="tag">lib
+                WhatsApp</span><span class="tag">PedBot remoto</span></div>
+          </div>
+        </div>
+        <div class="altbox">
+          <div style="font-size:12px;font-weight:500;color:#5f5e5a;margin-bottom:.4rem">Opção B — contingência (call
+            agendada no D-1)</div>
+          <div style="font-size:12px;color:#5f5e5a">Agenda individual com o gerente no dia anterior. Equipe PedBot entra
+            em call e compartilha tela. Gerente escaneia o QR pela câmera apontando para a tela. PedBot executa
+            remotamente. Painel atualizado ao concluir.</div>
+          <div style="margin-top:.4rem"><span class="tag">call agendada D-1</span><span class="tag">tela
+              compartilhada</span><span class="tag">mesmo resultado final</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- FLUXO DIA D -->
+    <div class="s">
+      <div class="st">Fluxo completo — D-1 e Dia D</div>
+      <div class="info" style="margin-bottom:.75rem">A sequência abaixo é distribuída em dois dias distintos. Nunca
+        comprimir tudo no dia D.</div>
+      <div class="card">
+        <div style="font-size:12px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">D-1 — dia anterior à implantação
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#faeeda;color:#633806;font-size:9px">D-1</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Sincronização do histórico via QR code</div>
+            <div class="step-desc">Opção A (bot autônomo) ou Opção B (call agendada). Número precisa estar ativo no app
+              durante a sync.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#faeeda;color:#633806;font-size:9px">D-1</div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Painel marcado como sincronizado</div>
+            <div class="step-desc">Pré-requisito verificado antes de liberar o gerente para o dia D.</div>
+          </div>
+        </div>
+        <div class="sep"></div>
+        <div style="font-size:12px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">Dia D — dia da implantação</div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#fcebeb;color:#791f1f;font-size:9px">-1h</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Gerente apaga o número do WhatsApp Business App</div>
+            <div class="step-desc">Mínimo 1h antes da agenda. Feito no dia D, após a sync do dia anterior já concluída.
+            </div>
+            <div class="warn">Nunca apagar antes de sincronizar. A sync precisa do app ativo. Apagar antes perde o
+              histórico permanentemente.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#e6f1fb;color:#0c447c">D</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Confirmar: número apagado?</div>
+            <div class="step-desc">Operações verifica antes de abrir cada agenda. Gerente sem número apagado não entra
+              na call.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#e6f1fb;color:#0c447c">D</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">GGL + gerentes entram na agenda</div>
+            <div class="step-desc">GGL supervisiona. PedBot dispara OTPs em massa para todos os números da agenda.
+              Gerentes aguardam código via SMS ou ligação.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#e6f1fb;color:#0c447c">D</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Gerentes informam OTP e saem</div>
+            <div class="step-desc">Cada gerente fala o código e sai imediatamente. Agilidade máxima. PedBot confirma
+              ativação em tempo real.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-dot" style="background:#eaf3de;color:#27500a">D</div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Implantação + teste + go-live</div>
+            <div class="step-desc">Com o número ativo no Cloud, DPSP + PedBot finaliza implantação e testa antes de
+              liberar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- AGENDAS -->
+    <div class="s">
+      <div class="st">Agendas do dia D — todos os dias de implantação</div>
+      <div class="g3" style="margin-bottom:1rem">
+        <div class="csm" style="text-align:center">
+          <div
+            style="font-family:monospace;font-size:12px;font-weight:500;background:#f5f5f3;padding:2px 8px;border-radius:4px;display:inline-block">
+            08:00 – 09:30</div>
+          <div style="font-size:11px;color:#73726c;margin-top:4px">Agenda 1</div>
+        </div>
+        <div class="csm" style="text-align:center">
+          <div
+            style="font-family:monospace;font-size:12px;font-weight:500;background:#f5f5f3;padding:2px 8px;border-radius:4px;display:inline-block">
+            15:00 – 16:30</div>
+          <div style="font-size:11px;color:#73726c;margin-top:4px">Agenda 2</div>
+        </div>
+        <div class="csm" style="text-align:center">
+          <div
+            style="font-family:monospace;font-size:12px;font-weight:500;background:#f5f5f3;padding:2px 8px;border-radius:4px;display:inline-block">
+            17:30 – 19:00</div>
+          <div style="font-size:11px;color:#73726c;margin-top:4px">Agenda 3</div>
+        </div>
+      </div>
+
+      <!-- PILOTO -->
+      <div id="wave-piloto" style="margin-bottom:1.5rem">
+        <div
+          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
+          <span
+            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#1D9E75;flex-shrink:0"></span>
+          Piloto
+        </div>
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('p10','cp10')">
+            <div class="onda-meta">
+              <span class="oh-title">10/04/2026</span>
+              <span class="badge bg">55 lojas · 5 GGLs · 55 OTPs</span>
+            </div>
+            <span class="ch" id="cp10">▶</span>
+          </div>
+          <div class="ob" id="p10">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sb">
+                  <div style="font-size:12px;font-weight:500">Higor Barros</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ TIJUCA · 8 gerentes</div>
+                </div>
+                <div class="slot sb">
+                  <div style="font-size:12px;font-weight:500">Paola Alonso</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ MEIER · 1 gerente</div>
+                </div>
+                <div
+                  style="font-size:11px;color:#b4b2a9;margin-top:.4rem;padding-top:.4rem;border-top:.5px solid #e0dfd6">
+                  2 GGLs · 9 gerentes</div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sg">
+                  <div style="font-size:12px;font-weight:500">Cesar Mendonça</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP PINHEIROS · 20 gerentes</div>
+                </div>
+                <div
+                  style="font-size:11px;color:#b4b2a9;margin-top:.4rem;padding-top:.4rem;border-top:.5px solid #e0dfd6">
+                  1 GGL · 20 gerentes</div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Vanessa Filipe</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP VILA MARIANA · 12 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Gisella Okumura</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP BAURU · 14 gerentes</div>
+                </div>
+                <div
+                  style="font-size:11px;color:#b4b2a9;margin-top:.4rem;padding-top:.4rem;border-top:.5px solid #e0dfd6">
+                  2 GGLs · 26 gerentes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1ª ONDA -->
+      <div id="wave-1" style="margin-bottom:1.5rem">
+        <div
+          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
+          <span
+            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#378ADD;flex-shrink:0"></span>
+          1ª Onda — 134 lojas
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o1a','co1a')">
+            <div class="onda-meta"><span class="oh-title">24/04/2026</span><span class="badge bi">39 lojas · 2 GGLs · 39
+                OTPs</span></div>
+            <span class="ch" id="co1a">▶</span>
+          </div>
+          <div class="ob" id="o1a">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sb">
+                  <div style="font-size:12px;font-weight:500">Andre Ramos</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP ALPHAVILLE · 19 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sg">
+                  <div style="font-size:12px;font-weight:500">Thamiris Almeida</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP HIGIENOPOLIS · 20 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div class="afree">
+                  <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a">17:30 – 19:00</div>
+                  <div style="font-size:11px;color:#b4b2a9">livre</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o1b','co1b')">
+            <div class="onda-meta"><span class="oh-title">30/04/2026</span><span class="badge bi">41 lojas · 2 GGLs · 41
+                OTPs</span></div>
+            <span class="ch" id="co1b">▶</span>
+          </div>
+          <div class="ob" id="o1b">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sb">
+                  <div style="font-size:12px;font-weight:500">Bruna Panhota</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP OSASCO · 21 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sg">
+                  <div style="font-size:12px;font-weight:500">Fabio Freitas</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP PAULISTA · 20 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div class="afree">
+                  <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a">17:30 – 19:00</div>
+                  <div style="font-size:11px;color:#b4b2a9">livre</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o1c','co1c')">
+            <div class="onda-meta"><span class="oh-title">08/05/2026</span><span class="badge bi">54 lojas · 3 GGLs · 54
+                OTPs</span></div>
+            <span class="ch" id="co1c">▶</span>
+          </div>
+          <div class="ob" id="o1c">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sb">
+                  <div style="font-size:12px;font-weight:500">Maysa Pinto</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP FREGUESIA · 19 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sg">
+                  <div style="font-size:12px;font-weight:500">Fabio Santos</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP JARDINS · 17 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Beatriz Souza</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP RAPOSO · 18 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2ª ONDA -->
+      <div id="wave-2" style="margin-bottom:1.5rem">
+        <div
+          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
+          <span
+            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#7F77DD;flex-shrink:0"></span>
+          2ª Onda — 267 lojas
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o2a','co2a')">
+            <div class="onda-meta"><span class="oh-title">22/05/2026</span><span class="badge bpurple">82 lojas · 4 GGLs
+                · 82 OTPs</span></div>
+            <span class="ch" id="co2a">▶</span>
+          </div>
+          <div class="ob" id="o2a">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Sérgio Correia</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ CAMPO GRANDE · 23 gerentes</div>
+                </div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Lucas Santos</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ MADUREIRA · 19 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Gabriela Holmes</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ NOVA IGUACU · 21 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Iara Marquss</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ RECREIO · 19 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o2b','co2b')">
+            <div class="onda-meta"><span class="oh-title">29/05/2026</span><span class="badge bpurple">94 lojas · 5 GGLs
+                · 94 OTPs</span></div>
+            <span class="ch" id="co2b">▶</span>
+          </div>
+          <div class="ob" id="o2b">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Mayara Monteiro</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ BANGU · 20 gerentes</div>
+                </div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">EM CONTRATAÇÃO</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ CAXIAS · 19 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Paola Alonso</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ MEIER · 17 gerentes</div>
+                </div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">EM CONTRATAÇÃO</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ PENHA · 20 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Matheus Gomes</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ SUL FLUMINENSE · 18 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o2c','co2c')">
+            <div class="onda-meta"><span class="oh-title">05/06/2026</span><span class="badge bpurple">91 lojas · 6 GGLs
+                · 91 OTPs</span></div>
+            <span class="ch" id="co2c">▶</span>
+          </div>
+          <div class="ob" id="o2c">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Charles Brandão</div>
+                  <div style="font-size:11px;color:#5f5e5a">DF ASA NORTE · 15 gerentes</div>
+                </div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Josiane Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">DF ASA SUL · 15 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Dieizibel Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">GO GOIANIA CENTRAL · 20 gerentes</div>
+                </div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Bruno Rocha</div>
+                  <div style="font-size:11px;color:#5f5e5a">GO GOIANIA+INTERIOR · 18 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Nicolas Voinarovski</div>
+                  <div style="font-size:11px;color:#5f5e5a">MT CUIABA · 14 gerentes</div>
+                </div>
+                <div class="slot sp">
+                  <div style="font-size:12px;font-weight:500">Cléber Martins</div>
+                  <div style="font-size:11px;color:#5f5e5a">MT INTERIOR · 9 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3ª ONDA -->
+      <div id="wave-3" style="margin-bottom:1.5rem">
+        <div
+          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
+          <span
+            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#EF9F27;flex-shrink:0"></span>
+          3ª Onda — 300 lojas
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o3a','co3a')">
+            <div class="onda-meta"><span class="oh-title">19/06/2026</span><span class="badge ba">98 lojas · 6 GGLs · 98
+                OTPs</span></div>
+            <span class="ch" id="co3a">▶</span>
+          </div>
+          <div class="ob" id="o3a">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Ivan Oliveira</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP ARARAQUARA · 17 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Rasmye Halawa</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP CATANDUVA · 13 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Camila Andressa</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP LIMEIRA · 18 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Leandro Siqueira</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP PRESIDENTE PRUDENTE · 17 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Diogo Melo</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP RIBEIRAO PRETO · 17 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Beatriz Reis</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SAO JOSE DO RIO PRETO · 16 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o3b','co3b')">
+            <div class="onda-meta"><span class="oh-title">26/06/2026</span><span class="badge ba">96 lojas · 5 GGLs · 96
+                OTPs</span></div>
+            <span class="ch" id="co3b">▶</span>
+          </div>
+          <div class="ob" id="o3b">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Victor Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP DIADEMA · 19 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Carlos Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP INTERLAGOS · 20 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Carol Nogueira</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP IPIRANGA · 19 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Antonio Marcos</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP MOEMA · 19 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Danillo Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP MORUMBI · 19 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o3c','co3c')">
+            <div class="onda-meta"><span class="oh-title">03/07/2026</span><span class="badge ba">106 lojas · 6 GGLs ·
+                106 OTPs</span></div>
+            <span class="ch" id="co3c">▶</span>
+          </div>
+          <div class="ob" id="o3c">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">EM PROCESSO</div>
+                  <div style="font-size:11px;color:#5f5e5a">ES VILA VELHA · 21 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Glaucio Dias</div>
+                  <div style="font-size:11px;color:#5f5e5a">ES VITORIA · 21 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Felipe Tupinambá</div>
+                  <div style="font-size:11px;color:#5f5e5a">PR PARANA · 11 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Ana Santos</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP CAMPO BELO · 18 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Thais Araki</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP JABAQUARA · 17 gerentes</div>
+                </div>
+                <div class="slot sa">
+                  <div style="font-size:12px;font-weight:500">Thiago Casado</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP TABOAO · 18 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4ª ONDA -->
+      <div id="wave-4" style="margin-bottom:1.5rem">
+        <div
+          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
+          <span
+            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#D4537E;flex-shrink:0"></span>
+          4ª Onda — 316 lojas
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o4a','co4a')">
+            <div class="onda-meta"><span class="oh-title">17/07/2026</span><span class="badge"
+                style="background:#fbeaf0;color:#72243e">99 lojas · 5 GGLs · 99 OTPs</span></div>
+            <span class="ch" id="co4a">▶</span>
+          </div>
+          <div class="ob" id="o4a">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Hargeisa Martins</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ COPACABANA · 19 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Danielle Albernaz</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ IPANEMA · 17 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">David Neves</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ JACAREPAGUA · 18 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Douglas Godim</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ LAGOS · 23 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Camila Moura</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ SAO GONCALO NITEROI · 22 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o4b','co4b')">
+            <div class="onda-meta"><span class="oh-title">24/07/2026</span><span class="badge"
+                style="background:#fbeaf0;color:#72243e">106 lojas · 6 GGLs · 106 OTPs</span></div>
+            <span class="ch" id="co4b">▶</span>
+          </div>
+          <div class="ob" id="o4b">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Gabriella Gonçalves</div>
+                  <div style="font-size:11px;color:#5f5e5a">MG BH CENTRO+INTERIOR · 17 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Poliana Matos</div>
+                  <div style="font-size:11px;color:#5f5e5a">MG NORTE BH · 17 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Daniela Jesus</div>
+                  <div style="font-size:11px;color:#5f5e5a">MG OESTE BH · 21 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Gil Cesar</div>
+                  <div style="font-size:11px;color:#5f5e5a">MG SUL BH · 19 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Julian Maia</div>
+                  <div style="font-size:11px;color:#5f5e5a">MG SUL DE MINAS · 13 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Natalia Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">MG ZONA DA MATA · 19 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o4c','co4c')">
+            <div class="onda-meta"><span class="oh-title">31/07/2026</span><span class="badge"
+                style="background:#fbeaf0;color:#72243e">111 lojas · 6 GGLs · 111 OTPs</span></div>
+            <span class="ch" id="co4c">▶</span>
+          </div>
+          <div class="ob" id="o4c">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Camila Lopes</div>
+                  <div style="font-size:11px;color:#5f5e5a">MG TRIANGULO MINEIRO · 17 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Janis Joplin</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ BARRA · 17 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Thaís Cruz</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ CAMPOS · 19 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Raphael Benedito</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ CENTRO · 17 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Wellyngton Gois</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ NITEROI OCEANICA · 22 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Raquel Jesus</div>
+                  <div style="font-size:11px;color:#5f5e5a">RJ SERRANA · 19 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5ª ONDA -->
+      <div id="wave-5" style="margin-bottom:1.5rem">
+        <div
+          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
+          <span
+            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#D85A30;flex-shrink:0"></span>
+          5ª Onda — 286 lojas
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o5a','co5a')">
+            <div class="onda-meta"><span class="oh-title">14/08/2026</span><span class="badge br">89 lojas · 5 GGLs · 89
+                OTPs</span></div>
+            <span class="ch" id="co5a">▶</span>
+          </div>
+          <div class="ob" id="o5a">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Alessandra Esnal</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP ITAQUERA · 18 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Alex Batista</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP JARDIM SAO PAULO · 18 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Airam Duarte</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP MOOCA · 17 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Adriana Rota</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SANTANA · 18 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Bruna Marin</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP TATUAPE · 18 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o5b','co5b')">
+            <div class="onda-meta"><span class="oh-title">21/08/2026</span><span class="badge br">92 lojas · 5 GGLs · 92
+                OTPs</span></div>
+            <span class="ch" id="co5b">▶</span>
+          </div>
+          <div class="ob" id="o5b">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Camila Borges</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP ARICANDUVA · 17 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Joao Nogueira</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP GUARULHOS · 19 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Juliana Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP MOGI · 18 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Marcelo Rodrigues</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SAO MIGUEL · 18 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Leandro Raimundo</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SOROCABA · 20 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o5c','co5c')">
+            <div class="onda-meta"><span class="oh-title">28/08/2026</span><span class="badge br">105 lojas · 6 GGLs ·
+                105 OTPs</span></div>
+            <span class="ch" id="co5c">▶</span>
+          </div>
+          <div class="ob" id="o5c">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Fernando Luchine</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP AMERICANA · 15 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Jaqueline Amati</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP ATIBAIA · 19 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Giovana Penariol</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP CAMPINAS · 18 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Mariley Tomazini</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP IGUATEMI CAMPINAS · 20 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Rafael Miguel</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP ITU · 15 gerentes</div>
+                </div>
+                <div class="slot sr">
+                  <div style="font-size:12px;font-weight:500">Samuel Goncalves</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP JUNDIAI · 18 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6ª ONDA -->
+      <div id="wave-6" style="margin-bottom:1.5rem">
+        <div
+          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
+          <span
+            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#888780;flex-shrink:0"></span>
+          6ª Onda — 260 lojas
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o6a','co6a')">
+            <div class="onda-meta"><span class="oh-title">11/09/2026</span><span class="badge"
+                style="background:#f1efe8;color:#2c2c2a">78 lojas · 4 GGLs · 78 OTPs</span></div>
+            <span class="ch" id="co6a">▶</span>
+          </div>
+          <div class="ob" id="o6a">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Caio Monteiro</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SANTOS · 16 gerentes</div>
+                </div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Cristiane Cruz</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SAO BERNARDO · 21 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Gledson Floriano</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SAO JOSE DOS CAMPOS · 22 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Fernanda Roberta</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP VALE DO PARAIBA · 19 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o6b','co6b')">
+            <div class="onda-meta"><span class="oh-title">18/09/2026</span><span class="badge"
+                style="background:#f1efe8;color:#2c2c2a">91 lojas · 5 GGLs · 91 OTPs</span></div>
+            <span class="ch" id="co6b">▶</span>
+          </div>
+          <div class="ob" id="o6b">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Alan Costa</div>
+                  <div style="font-size:11px;color:#5f5e5a">BA SSA CENTRO · 19 gerentes</div>
+                </div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Rogerio Carvalho</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP LITORAL NORTE · 14 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Hocia Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP LITORAL SUL · 17 gerentes</div>
+                </div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Jaques Amorim</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SANTO ANDRE · 21 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Karla Duarte</div>
+                  <div style="font-size:11px;color:#5f5e5a">SP SAO CAETANO · 20 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px">
+          <div class="oh" onclick="tog('o6c','co6c')">
+            <div class="onda-meta"><span class="oh-title">25/09/2026</span><span class="badge"
+                style="background:#f1efe8;color:#2c2c2a">91 lojas · 6 GGLs · 91 OTPs</span></div>
+            <span class="ch" id="co6c">▶</span>
+          </div>
+          <div class="ob" id="o6c">
+            <div class="g3" style="margin-top:.75rem">
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  08:00 – 09:30</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Joel Araujo</div>
+                  <div style="font-size:11px;color:#5f5e5a">BA INTERIOR · 13 gerentes</div>
+                </div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Marli Ferreira</div>
+                  <div style="font-size:11px;color:#5f5e5a">BA SSA METROPOLITANA · 16 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  15:00 – 16:30</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Catarina Oliveira</div>
+                  <div style="font-size:11px;color:#5f5e5a">BA SSA NORTE · 14 gerentes</div>
+                </div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Tiago Cruz</div>
+                  <div style="font-size:11px;color:#5f5e5a">BA SSA SUL · 16 gerentes</div>
+                </div>
+              </div>
+              <div class="acard">
+                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
+                  17:30 – 19:00</div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Malhaine Santos</div>
+                  <div style="font-size:11px;color:#5f5e5a">PE NORTE · 16 gerentes</div>
+                </div>
+                <div class="slot" style="border-color:#888780">
+                  <div style="font-size:12px;font-weight:500">Reinaldo Silva</div>
+                  <div style="font-size:11px;color:#5f5e5a">PE SUL · 16 gerentes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- CHECKLIST -->
+    <div class="s">
+      <div class="st">Checklist por loja</div>
+      <div class="card">
+        <table>
+          <tr>
+            <th>Quando</th>
+            <th>Etapa</th>
+            <th>Quem</th>
+            <th>Obs</th>
+          </tr>
+          <tr>
+            <td><span class="badge ba">D-1</span></td>
+            <td>Sincronização via QR code (app ainda ativo)</td>
+            <td>Gerente + PedBot</td>
+            <td>Opção A ou B</td>
+          </tr>
+          <tr>
+            <td><span class="badge ba">D-1</span></td>
+            <td>Painel marcado como sincronizado</td>
+            <td>Sistema</td>
+            <td>Pré-req para o dia D</td>
+          </tr>
+          <tr>
+            <td><span class="badge br">D -1h</span></td>
+            <td>Gerente apaga número do app</td>
+            <td>Gerente</td>
+            <td>Após sync do D-1</td>
+          </tr>
+          <tr>
+            <td><span class="badge bi">Dia D</span></td>
+            <td>Confirmar: número apagado?</td>
+            <td>Operações</td>
+            <td>Antes de abrir agenda</td>
+          </tr>
+          <tr>
+            <td><span class="badge bi">Dia D</span></td>
+            <td>GGL + gerentes entram na agenda</td>
+            <td>GGL + Gerentes</td>
+            <td>Horário padronizado</td>
+          </tr>
+          <tr>
+            <td><span class="badge bi">Dia D</span></td>
+            <td>OTP disparado em massa</td>
+            <td>PedBot</td>
+            <td>Todos da agenda</td>
+          </tr>
+          <tr>
+            <td><span class="badge bi">Dia D</span></td>
+            <td>Gerentes informam OTP e saem</td>
+            <td>Gerentes</td>
+            <td>Agilidade máxima</td>
+          </tr>
+          <tr>
+            <td><span class="badge bg">Dia D</span></td>
+            <td>Implantação + teste + go-live</td>
+            <td>DPSP + PedBot</td>
+            <td>Painel: ativado</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <script>
+    function tog(b, c) {
+      var bo = document.getElementById(b), ch = document.getElementById(c);
+      var op = bo.classList.toggle('open');
+      ch.classList.toggle('open', op);
+    }
+  </script>
+</body>
+
+</html>
