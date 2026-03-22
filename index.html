@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panorama Implantação DPSP + PedBot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Implantação DPSP + PedBot</title>
   <style>
     * {
       box-sizing: border-box;
@@ -16,27 +16,68 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: #f5f5f3;
       color: #1a1a18;
-      padding: 2rem;
       font-size: 14px;
       line-height: 1.6
     }
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto
+    .topbar {
+      background: #fff;
+      border-bottom: .5px solid #e0dfd6;
+      padding: .6rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: .5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100
     }
 
-    h1 {
-      font-size: 22px;
+    .topbar-title {
+      font-size: 14px;
+      font-weight: 500
+    }
+
+    .topbar-sub {
+      font-size: 11px;
+      color: #73726c
+    }
+
+    .nav {
+      display: flex;
+      gap: .2rem;
+      flex-wrap: wrap
+    }
+
+    .nav a {
+      font-size: 11px;
       font-weight: 500;
-      margin-bottom: .2rem;
+      padding: 3px 9px;
+      border-radius: 20px;
+      text-decoration: none;
+      border: .5px solid #e0dfd6;
+      color: #5f5e5a;
+      transition: all .15s;
+      cursor: pointer;
+      white-space: nowrap
+    }
+
+    .nav a:hover {
+      background: #f5f5f3;
       color: #1a1a18
     }
 
-    .subtitle {
-      font-size: 13px;
-      color: #73726c;
-      margin-bottom: 2rem
+    .nav a.active {
+      background: #1a1a18;
+      color: #fff;
+      border-color: #1a1a18
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem
     }
 
     .s {
@@ -49,8 +90,8 @@
       color: #73726c;
       text-transform: uppercase;
       letter-spacing: .06em;
-      margin-bottom: .75rem;
-      padding-bottom: .4rem;
+      margin-bottom: .65rem;
+      padding-bottom: .35rem;
       border-bottom: .5px solid #e0dfd6
     }
 
@@ -61,10 +102,23 @@
       padding: 1rem 1.25rem
     }
 
+    .card-bm {
+      background: #fff;
+      border: 1.5px solid #85b7eb;
+      border-radius: 12px;
+      padding: 1rem 1.25rem
+    }
+
     .csm {
       background: #f5f5f3;
       border-radius: 8px;
-      padding: .75rem 1rem
+      padding: .65rem .9rem
+    }
+
+    .csm-bm {
+      background: #e6f1fb;
+      border-radius: 8px;
+      padding: .65rem .9rem
     }
 
     .g2 {
@@ -76,6 +130,12 @@
     .g3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px
+    }
+
+    .g4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px
     }
 
@@ -107,9 +167,27 @@
       color: #791f1f
     }
 
-    .bpurple {
+    .bpu {
       background: #eeedfe;
       color: #3c3489
+    }
+
+    .bbm {
+      background: #e6f1fb;
+      color: #185fa5;
+      border: .5px solid #85b7eb
+    }
+
+    .bver {
+      background: #eaf3de;
+      color: #0f6e56;
+      border: .5px solid #5DCAA5
+    }
+
+    .bsync {
+      background: #faeeda;
+      color: #633806;
+      border: .5px solid #f0c080
     }
 
     .tag {
@@ -122,36 +200,15 @@
       display: inline-block
     }
 
-    .slot {
-      border-left: 3px solid;
-      border-radius: 0 8px 8px 0;
-      padding: .55rem .75rem;
-      margin-bottom: .4rem;
-      background: #f5f5f3
-    }
-
-    .slot:last-of-type {
-      margin-bottom: 0
-    }
-
-    .sb {
-      border-color: #378ADD
-    }
-
-    .sg {
-      border-color: #639922
-    }
-
-    .sa {
-      border-color: #BA7517
-    }
-
-    .sr {
-      border-color: #E24B4A
-    }
-
-    .sp {
-      border-color: #7F77DD
+    .tag-bm {
+      font-size: 11px;
+      background: #e6f1fb;
+      color: #185fa5;
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin: 2px;
+      display: inline-block;
+      border: .5px solid #85b7eb
     }
 
     .div {
@@ -160,17 +217,10 @@
       margin: 1.5rem 0
     }
 
-    .mv {
-      font-size: 22px;
-      font-weight: 500;
-      line-height: 1.1;
-      color: #1a1a18
-    }
-
-    .ml {
-      font-size: 12px;
-      color: #73726c;
-      margin-top: 2px
+    .sep {
+      height: .5px;
+      background: #e0dfd6;
+      margin: .65rem 0
     }
 
     .oh {
@@ -183,18 +233,18 @@
     }
 
     .oh:hover .oh-title {
-      color: #378ADD
+      opacity: .7
     }
 
     .oh-title {
       font-size: 13px;
       font-weight: 500;
-      transition: color .15s
+      transition: opacity .15s
     }
 
     .ob {
       display: none;
-      margin-top: .75rem
+      margin-top: .65rem
     }
 
     .ob.open {
@@ -203,7 +253,6 @@
 
     .ch {
       transition: transform .2s;
-      display: inline-block;
       font-size: 10px;
       color: #b4b2a9;
       flex-shrink: 0
@@ -211,6 +260,359 @@
 
     .ch.open {
       transform: rotate(90deg)
+    }
+
+    .warn {
+      background: #faeeda;
+      border: .5px solid #f0c080;
+      border-radius: 8px;
+      padding: .45rem .75rem;
+      font-size: 12px;
+      color: #633806
+    }
+
+    .info {
+      background: #e6f1fb;
+      border: .5px solid #85b7eb;
+      border-radius: 8px;
+      padding: .45rem .75rem;
+      font-size: 12px;
+      color: #0c447c
+    }
+
+    .success {
+      background: #eaf3de;
+      border: .5px solid #5DCAA5;
+      border-radius: 8px;
+      padding: .45rem .75rem;
+      font-size: 12px;
+      color: #0f6e56
+    }
+
+    .danger {
+      background: #fcebeb;
+      border: .5px solid #f09595;
+      border-radius: 8px;
+      padding: .45rem .75rem;
+      font-size: 12px;
+      color: #791f1f;
+      margin-top: .35rem
+    }
+
+    .devbadge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: #fcebeb;
+      color: #791f1f;
+      border: .5px solid #f09595;
+      display: inline-block
+    }
+
+    .deadline {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 20px;
+      background: #fcebeb;
+      color: #791f1f;
+      border: .5px solid #f09595;
+      display: inline-block
+    }
+
+    .atime {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: #5f5e5a;
+      margin-bottom: .35rem;
+      display: block
+    }
+
+    .acard {
+      background: #fff;
+      border: .5px solid #e0dfd6;
+      border-radius: 8px;
+      padding: .6rem .7rem
+    }
+
+    .afree {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border: .5px dashed #e0dfd6;
+      border-radius: 8px
+    }
+
+    .mv {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.1
+    }
+
+    .ml {
+      font-size: 12px;
+      color: #73726c;
+      margin-top: 2px
+    }
+
+    .tl {
+      display: flex;
+      gap: 0;
+      overflow-x: auto
+    }
+
+    .tls {
+      flex: 1;
+      min-width: 52px;
+      text-align: center;
+      font-size: 10px;
+      color: #73726c;
+      padding: 4px 2px;
+      white-space: nowrap
+    }
+
+    .tls.act {
+      font-weight: 500;
+      color: #1a1a18
+    }
+
+    .tlb {
+      height: 8px;
+      border-radius: 3px;
+      margin: 4px 2px 2px
+    }
+
+    .bm-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: .5rem 0;
+      border-bottom: .5px solid #e0dfd6
+    }
+
+    .bm-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0
+    }
+
+    .bm-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0
+    }
+
+    .altbox {
+      border: .5px dashed #b4b2a9;
+      border-radius: 8px;
+      padding: .65rem .9rem
+    }
+
+    .bmbox {
+      border: 1.5px solid #85b7eb;
+      border-radius: 8px;
+      padding: .65rem .9rem;
+      background: #f0f7ff;
+      margin-bottom: .5rem
+    }
+
+    .syncbox {
+      border: 1.5px solid #f0c080;
+      border-radius: 8px;
+      padding: .65rem .9rem;
+      background: #fffbf0;
+      margin-bottom: .5rem
+    }
+
+    .step {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+      margin-bottom: .15rem
+    }
+
+    .sl {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 28px;
+      min-width: 28px
+    }
+
+    .sd {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 500;
+      flex-shrink: 0
+    }
+
+    .sline {
+      flex: 1;
+      width: 1.5px;
+      background: #e0dfd6;
+      margin: 3px 0
+    }
+
+    .sb2 {
+      padding-bottom: .5rem;
+      flex: 1
+    }
+
+    .stitle {
+      font-size: 13px;
+      font-weight: 500
+    }
+
+    .sdesc {
+      font-size: 12px;
+      color: #5f5e5a;
+      margin-top: 2px;
+      line-height: 1.5
+    }
+
+    .section-page {
+      display: none
+    }
+
+    .section-page.active {
+      display: block
+    }
+
+    .ow {
+      margin-bottom: 1.1rem
+    }
+
+    .oh2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .5rem;
+      flex-wrap: wrap
+    }
+
+    .odot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .pg {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 8px
+    }
+
+    .ph {
+      border-radius: 10px;
+      padding: .7rem;
+      border: .5px solid #e0dfd6
+    }
+
+    .pht {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: .4rem;
+      padding-bottom: .3rem;
+      border-bottom: .5px solid #e0dfd6
+    }
+
+    .ev {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: .35rem
+    }
+
+    .ev:last-child {
+      margin-bottom: 0
+    }
+
+    .evd {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 4px;
+      flex-shrink: 0
+    }
+
+    .evdate {
+      font-size: 10px;
+      font-family: monospace;
+      color: #73726c;
+      flex-shrink: 0;
+      min-width: 36px
+    }
+
+    .evlb {
+      font-size: 12px;
+      line-height: 1.4
+    }
+
+    .evlb-bm {
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 500;
+      color: #185fa5
+    }
+
+    .evlb-ver {
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 500;
+      color: #0f6e56
+    }
+
+    .evsub {
+      font-size: 10px;
+      color: #73726c;
+      margin-top: 1px
+    }
+
+    .ib {
+      background: #f5f5f3;
+      border-radius: 8px;
+      padding: .55rem .65rem;
+      margin-bottom: .35rem
+    }
+
+    .ib:last-child {
+      margin-bottom: 0
+    }
+
+    .ibd {
+      font-size: 11px;
+      font-weight: 500;
+      font-family: monospace
+    }
+
+    .ibl {
+      font-size: 11px;
+      color: #73726c;
+      margin-bottom: .25rem
+    }
+
+    .ib-bm {
+      font-size: 10px;
+      color: #185fa5;
+      margin-bottom: .2rem
+    }
+
+    .ib-sync {
+      font-size: 10px;
+      color: #633806;
+      margin-bottom: .25rem
     }
 
     table {
@@ -229,223 +631,29 @@
     th {
       font-weight: 500;
       color: #73726c;
-      border-bottom: .5px solid #e0dfd6;
-      white-space: nowrap
+      border-bottom: .5px solid #e0dfd6
     }
 
     tr:not(:last-child) td {
       border-bottom: .5px solid #e0dfd6
     }
 
-    .step {
-      display: flex;
-      gap: 0;
-      align-items: stretch;
-      margin-bottom: .2rem
-    }
-
-    .step-left {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 32px;
-      min-width: 32px
-    }
-
-    .step-dot {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 500;
-      flex-shrink: 0
-    }
-
-    .step-line {
-      flex: 1;
-      width: 1.5px;
-      background: #e0dfd6;
-      margin: 3px 0
-    }
-
-    .step-body {
-      padding-bottom: .6rem;
-      flex: 1
-    }
-
-    .step-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: #1a1a18
-    }
-
-    .step-desc {
-      font-size: 12px;
-      color: #5f5e5a;
-      margin-top: 3px;
-      line-height: 1.5
-    }
-
-    .warn {
-      background: #faeeda;
-      border: .5px solid #f0c080;
-      border-radius: 8px;
-      padding: .5rem .8rem;
-      font-size: 12px;
-      color: #633806;
-      margin-top: .4rem
-    }
-
-    .info {
-      background: #e6f1fb;
-      border: .5px solid #85b7eb;
-      border-radius: 8px;
-      padding: .5rem .8rem;
-      font-size: 12px;
-      color: #0c447c;
-      margin-top: .4rem
-    }
-
-    .danger {
-      background: #fcebeb;
-      border: .5px solid #f09595;
-      border-radius: 8px;
-      padding: .5rem .8rem;
-      font-size: 12px;
-      color: #791f1f;
-      margin-top: .4rem
-    }
-
-    .devbadge {
+    .pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: #eeedfe;
-      color: #3c3489;
-      border: .5px solid #afa9ec
-    }
-
-    .deadline {
-      display: inline-flex;
-      align-items: center;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: #fcebeb;
-      color: #791f1f;
-      border: .5px solid #f09595
-    }
-
-    .tl {
-      display: flex;
-      gap: 0;
-      margin-top: .5rem
-    }
-
-    .tls {
-      flex: 1;
-      min-width: 52px;
-      text-align: center;
-      font-size: 10px;
-      color: #73726c;
-      padding: 4px 2px
-    }
-
-    .tls.act {
-      font-weight: 500;
-      color: #1a1a18
-    }
-
-    .tlb {
-      height: 8px;
-      border-radius: 3px;
-      margin: 4px 2px 2px
-    }
-
-    .altbox {
-      border: .5px dashed #b4b2a9;
-      border-radius: 8px;
-      padding: .75rem 1rem;
-      margin-top: .75rem
-    }
-
-    .bm-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: .6rem 0;
-      border-bottom: .5px solid #e0dfd6
-    }
-
-    .bm-row:last-child {
-      border-bottom: none;
-      padding-bottom: 0
-    }
-
-    .bm-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-top: 6px;
-      flex-shrink: 0
-    }
-
-    .atime {
-      display: inline-block;
+      gap: 4px;
       font-size: 11px;
       font-weight: 500;
       padding: 2px 8px;
-      border-radius: 4px;
-      background: #f5f5f3;
-      color: #5f5e5a;
-      font-family: monospace;
-      margin-bottom: .5rem
-    }
-
-    .acard {
-      background: #fff;
-      border: .5px solid #e0dfd6;
-      border-radius: 10px;
-      padding: .75rem
-    }
-
-    .afree {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 4px;
-      min-height: 60px;
-      border: .5px dashed #e0dfd6;
-      border-radius: 8px;
-      padding: .5rem
-    }
-
-    .onda-meta {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      flex-wrap: wrap
-    }
-
-    .sep {
-      height: .5px;
-      background: #e0dfd6;
-      margin: .6rem 0
+      border-radius: 20px
     }
 
     @media(max-width:680px) {
 
+      .pg,
       .g2,
-      .g3 {
+      .g3,
+      .g4 {
         grid-template-columns: 1fr
       }
     }
@@ -453,1308 +661,1025 @@
 </head>
 
 <body>
-  <div class="container">
 
-    <h1>Panorama de Implantação</h1>
-    <div class="subtitle">DPSP + PedBot · Estratégia completa · Atualizado em 21/03/2026</div>
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">Implantação DPSP + PedBot</div>
+      <div class="topbar-sub">Cronograma completo · 2026</div>
+    </div>
+    <nav class="nav">
+      <a class="active" onclick="sp('visao',this)">Visão geral</a>
+      <a onclick="sp('bms',this)">BMs</a>
+      <a onclick="sp('sync',this)">Sincronização</a>
+      <a onclick="sp('crono',this)">Cronograma</a>
+      <a onclick="sp('agendas',this)">Agendas</a>
+      <a onclick="sp('checklist',this)">Checklist</a>
+    </nav>
+  </div>
 
-    <!-- TIMELINE -->
-    <div class="s">
-      <div class="st">Timeline do rollout</div>
-      <div style="overflow-x:auto">
-        <div class="tl">
+  <div class="page">
+
+    <div id="page-visao" class="section-page active">
+      <div class="s">
+        <div class="st">Timeline do rollout</div>
+        <div class="tl" style="margin-top:.5rem">
           <div class="tls act">
             <div>Mar</div>
             <div class="tlb" style="background:#E24B4A"></div>
-            <div><strong>BMs</strong></div>
+            <div>BMs</div>
           </div>
           <div class="tls act">
             <div>10/Abr</div>
             <div class="tlb" style="background:#1D9E75"></div>
-            <div><strong>Piloto</strong><br>55</div>
+            <div>Piloto 55</div>
           </div>
           <div class="tls">
             <div>Abr/Mai</div>
             <div class="tlb" style="background:#378ADD"></div>
-            <div>1ª Onda<br>134</div>
+            <div>1ª 134</div>
           </div>
           <div class="tls">
             <div>Mai/Jun</div>
             <div class="tlb" style="background:#7F77DD"></div>
-            <div>2ª Onda<br>267</div>
+            <div>2ª 267</div>
           </div>
           <div class="tls">
             <div>Jun/Jul</div>
             <div class="tlb" style="background:#EF9F27"></div>
-            <div>3ª Onda<br>300</div>
+            <div>3ª 300</div>
           </div>
           <div class="tls">
             <div>Jul/Ago</div>
             <div class="tlb" style="background:#D4537E"></div>
-            <div>4ª Onda<br>316</div>
+            <div>4ª 316</div>
           </div>
           <div class="tls">
             <div>Ago</div>
             <div class="tlb" style="background:#D85A30"></div>
-            <div>5ª Onda<br>286</div>
+            <div>5ª 286</div>
           </div>
           <div class="tls">
             <div>Set</div>
             <div class="tlb" style="background:#888780"></div>
-            <div>6ª Onda<br>260</div>
+            <div>6ª 260</div>
+          </div>
+        </div>
+        <div class="g4" style="margin-top:10px">
+          <div class="csm">
+            <div class="mv">1.618</div>
+            <div class="ml">Total de lojas</div>
+          </div>
+          <div class="csm">
+            <div class="mv">7 ondas</div>
+            <div class="ml">Piloto + 6 ondas</div>
+          </div>
+          <div class="csm-bm">
+            <div class="mv" style="color:#185fa5">814</div>
+            <div class="ml">BMs necessários</div>
+          </div>
+          <div class="csm">
+            <div class="mv">Out/26</div>
+            <div class="ml">Fim do rollout</div>
           </div>
         </div>
       </div>
-      <div class="g2" style="margin-top:10px">
-        <div class="csm">
-          <div class="mv">1.618</div>
-          <div class="ml">Total de lojas no rollout</div>
-        </div>
-        <div class="csm">
-          <div class="mv">7 ondas</div>
-          <div class="ml">Piloto + 6 ondas de expansão</div>
+      <div class="div"></div>
+      <div class="s">
+        <div class="st">Sequência por loja - do D-21 ao go-live</div>
+        <div class="card">
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#e6f1fb;color:#185fa5;font-size:9px">D-21</div>
+              <div class="sline"></div>
+            </div>
+            <div class="sb2">
+              <div class="stitle" style="color:#185fa5">Início criação dos BMs</div>
+              <div class="sdesc">DPSP e PedBot criam os BMs em paralelo durante 1 semana. Prazo de 7 dias para criar
+                todos os BMs do lote, mesmo com outras atividades em paralelo.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#e6f1fb;color:#185fa5;font-size:9px">D-14</div>
+              <div class="sline"></div>
+            </div>
+            <div class="sb2">
+              <div class="stitle" style="color:#185fa5">Entrega dos BMs + início da verificação</div>
+              <div class="sdesc">BMs criados entregues. Verificação iniciada e mantida até o dia D. BM verificado é o
+                ideal. BM saudável com conta WhatsApp criada previamente já é suficiente para a ativação.</div>
+              <div class="success" style="margin-top:.3rem">BMs saudáveis são suficientes para o dia D. A verificação é
+                realizada sempre em todos os BMs, mas não é bloqueante.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#faeeda;color:#633806;font-size:9px">D-1</div>
+              <div class="sline"></div>
+            </div>
+            <div class="sb2">
+              <div class="stitle">Sincronização do histórico via QR code</div>
+              <div class="sdesc">Gerente envia mensagem do número da loja para o PedBot. Bot valida a lista, guia o
+                processo e sincroniza ~180 dias remotamente. Número marcado como sincronizado ao concluir.</div>
+              <div class="warn" style="margin-top:.35rem">App precisa estar ativo durante a sync. Apagar antes perde o
+                histórico permanentemente.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#fcebeb;color:#791f1f;font-size:9px">-1h</div>
+              <div class="sline"></div>
+            </div>
+            <div class="sb2">
+              <div class="stitle">Gerente apaga o número do WhatsApp Business App</div>
+              <div class="sdesc">Feito no dia D, ao menos 1h antes da agenda. Confirmado por Operações antes de abrir a
+                call.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#e6f1fb;color:#0c447c">D</div>
+              <div class="sline"></div>
+            </div>
+            <div class="sb2">
+              <div class="stitle">GGL + gerentes entram na agenda</div>
+              <div class="sdesc">PedBot dispara OTPs em massa. Gerentes informam o código e saem. GGL supervisiona.
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#eaf3de;color:#27500a">D</div>
+            </div>
+            <div class="sb2">
+              <div class="stitle">Implantação + teste + go-live</div>
+              <div class="sdesc">Número ativo no Cloud. DPSP + PedBot finaliza, testa e libera.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="div"></div>
-
-    <!-- BMs -->
-    <div class="s">
-      <div class="st">Criação dos BMs</div>
-      <div class="card">
-        <div
-          style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem">
-          <div style="font-size:13px;font-weight:500">Responsabilidade DPSP</div>
-          <span class="deadline">Prazo: 27/03 · Limite 31/03</span>
-        </div>
-        <div class="bm-row">
-          <div class="bm-dot" style="background:#378ADD"></div>
-          <div>
-            <div style="font-size:12px;font-weight:500">80 BMs criados pela DPSP e compartilhados com PedBot</div>
-            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Entrega até 27/03, impreterivelmente até 31/03. Sem
-              esses BMs, o piloto de 10/04 não acontece.</div>
+    <div id="page-bms" class="section-page">
+      <div class="s">
+        <div class="st">Visão geral</div>
+        <div class="g3" style="margin-bottom:.75rem">
+          <div class="csm-bm" style="text-align:center">
+            <div class="mv" style="color:#185fa5">814</div>
+            <div class="ml">BMs no total do rollout</div>
+          </div>
+          <div class="csm-bm" style="text-align:center">
+            <div class="mv" style="color:#0c447c">411</div>
+            <div class="ml">DPSP</div>
+          </div>
+          <div class="csm-bm" style="text-align:center">
+            <div class="mv" style="color:#1D9E75">403</div>
+            <div class="ml">PedBot</div>
           </div>
         </div>
-        <div class="bm-row">
-          <div class="bm-dot" style="background:#378ADD"></div>
-          <div>
-            <div style="font-size:12px;font-weight:500">1 email @drogariasaopaulo.com.br</div>
-            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Para verificações Meta do lado PedBot. Pode ser o
-              verify.meta já existente.</div>
-            <div style="margin-top:.3rem"><span class="tag">verify.meta disponível</span></div>
+        <div class="card-bm">
+          <div class="bm-row">
+            <div class="bm-dot" style="background:#185fa5"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">Cada BM suporta inicialmente 2 números</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">BMs necessários por lote: ceil(quantidade de
+                lojas daquele dia D / 2)</div>
+            </div>
+          </div>
+          <div class="bm-row">
+            <div class="bm-dot" style="background:#185fa5"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">Divisão 50/50 entre DPSP e PedBot</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">DPSP com a metade arredondada para cima. PedBot
+                com o restante. Criação em paralelo.</div>
+            </div>
+          </div>
+          <div class="bm-row">
+            <div class="bm-dot" style="background:#185fa5"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">Janela de criação: D-21 até D-14 (7 dias)</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">1 semana de prazo para criar todos os BMs do
+                lote, mesmo que hajam outras atividades em paralelo.</div>
+            </div>
+          </div>
+          <div class="bm-row" style="border-bottom:none;padding-bottom:0">
+            <div class="bm-dot" style="background:#1D9E75"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">D-14 ao dia D: verificação dos BMs</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">BM verificado é o ideal. BM saudável (com conta
+                WhatsApp criada previamente) já é suficiente para o dia D. A verificação é realizada sempre em todos os
+                BMs, mas não é bloqueante.</div>
+            </div>
           </div>
         </div>
-        <div class="bm-row">
-          <div class="bm-dot" style="background:#378ADD"></div>
-          <div>
-            <div style="font-size:12px;font-weight:500">1 email @drogariaspacheco.com.br</div>
-            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Mesma finalidade. Pode ser o verify.meta já
-              existente.</div>
-            <div style="margin-top:.3rem"><span class="tag">verify.meta disponível</span></div>
+      </div>
+      <div class="s">
+        <div class="st">Preparação obrigatória de cada BM</div>
+        <div class="card-bm">
+          <div class="bm-row">
+            <div class="bm-dot" style="background:#185fa5"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">Processo de preparação do BM</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Cada BM criado precisa obrigatoriamente passar
+                pelo processo de preparação: criar uma conta WhatsApp dentro do BM e deixá-la ativa. Isso garante que o
+                BM está saudável e pronto para ativação no dia D.</div>
+            </div>
+          </div>
+          <div class="bm-row" style="border-bottom:none;padding-bottom:0">
+            <div class="bm-dot" style="background:#1D9E75"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">Verificação realizada sempre, nunca bloqueante</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">A verificação é conduzida em todos os BMs durante
+                os 14 dias antes do dia D. Se chegar ao dia D sem verificação mas estando saudável, o processo segue
+                normalmente. A verificação continua após o dia D.</div>
+            </div>
           </div>
         </div>
-        <div class="sep"></div>
-        <div style="font-size:13px;font-weight:500;margin-bottom:.75rem">Estratégias PedBot</div>
-        <div class="bm-row">
-          <div class="bm-dot" style="background:#1D9E75"></div>
-          <div>
-            <div style="font-size:12px;font-weight:500">Criação via emails de domínio próprio com alias</div>
-            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Permite volume alto de contas Facebook.
-              Dificuldade: necessidade de número de telefone no cadastro.</div>
-            <div style="margin-top:.3rem"><span class="tag">estratégia principal</span></div>
+      </div>
+      <div class="s">
+        <div class="st">Emails necessários (DPSP)</div>
+        <div class="card-bm">
+          <div class="bm-row">
+            <div class="bm-dot" style="background:#1D9E75"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">verify.meta@drogariasaopaulo.com.br</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Para verificações Meta do lado PedBot. Email
+                verify.meta já existente na DPSP.</div>
+            </div>
+          </div>
+          <div class="bm-row" style="border-bottom:none;padding-bottom:0">
+            <div class="bm-dot" style="background:#1D9E75"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">verify.meta@drogariaspacheco.com.br</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Mesma finalidade. Email verify.meta já existente
+                na DPSP.</div>
+            </div>
           </div>
         </div>
-        <div class="bm-row">
-          <div class="bm-dot" style="background:#1D9E75"></div>
-          <div>
-            <div style="font-size:12px;font-weight:500">Expansão de limites via Vonage</div>
-            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Acompanhamento conjunto com Vonage para aumentar
-              quantidade de números por BM. Pré-aprovação obtida. Aplicado em BMs verificados com alta qualidade,
-              separados para DSP e DP.</div>
-            <div style="margin-top:.3rem"><span class="tag">pré-aprovação obtida</span><span class="tag">BMs DSP
-                separados de DP</span></div>
+      </div>
+      <div class="s">
+        <div class="st">Estratégias PedBot para criação</div>
+        <div class="card">
+          <div class="bm-row">
+            <div class="bm-dot" style="background:#1D9E75"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">Criação via emails de domínio próprio com alias</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Permite volume alto de contas Facebook.
+                Dificuldade: necessidade de número de telefone no cadastro.</div>
+              <div style="margin-top:.3rem"><span class="tag-bm">estratégia principal</span></div>
+            </div>
+          </div>
+          <div class="bm-row">
+            <div class="bm-dot" style="background:#1D9E75"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">Expansão de limites via Vonage</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Pré-aprovação obtida. Aplicado em BMs verificados
+                com alta qualidade, separados para DSP e DP.</div>
+              <div style="margin-top:.3rem"><span class="tag-bm">pré-aprovação obtida</span><span class="tag-bm">BMs DSP
+                  separados de DP</span></div>
+            </div>
+          </div>
+          <div class="bm-row" style="border-bottom:none;padding-bottom:0">
+            <div class="bm-dot" style="background:#E24B4A"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500">Compra de contas</div>
+              <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Última opção. Risco de banimento sem aviso antes
+                ou após a ativação.</div>
+              <div class="danger">Evitar ao máximo. Usar apenas se todas as outras opções falharem.</div>
+            </div>
           </div>
         </div>
-        <div class="bm-row">
-          <div class="bm-dot" style="background:#E24B4A"></div>
-          <div>
-            <div style="font-size:12px;font-weight:500">Compra de contas</div>
-            <div style="font-size:12px;color:#5f5e5a;margin-top:2px">Mantida como última opção. Risco: irregularidade
-              pode ser detectada antes ou depois da ativação, números podem ser banidos sem aviso prévio.</div>
-            <div class="danger">Evitar ao máximo. Usar apenas se todas as outras opções falharem.</div>
+      </div>
+      <div class="s">
+        <div class="st">Calendário de entregas - 19 lotes escalonados</div>
+        <div class="card-bm">
+          <div style="overflow-x:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>Onda</th>
+                  <th>Dia D</th>
+                  <th>Lojas</th>
+                  <th>BMs</th>
+                  <th style="color:#0c447c">DPSP</th>
+                  <th style="color:#1D9E75">PedBot</th>
+                  <th style="color:#185fa5">Início criação (D-21)</th>
+                  <th style="color:#E24B4A">Entrega (D-14)</th>
+                  <th style="color:#0f6e56">Verificação até</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:#f0f7ff">
+                  <td><span class="badge bg">Piloto</span></td>
+                  <td>10/04</td>
+                  <td>55</td>
+                  <td style="font-weight:500">28</td>
+                  <td style="color:#0c447c;font-weight:500">14</td>
+                  <td style="color:#1D9E75;font-weight:500">14</td>
+                  <td style="color:#185fa5;font-weight:500">20/03</td>
+                  <td><span class="deadline">27/03</span></td>
+                  <td style="color:#0f6e56">10/04</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bi">1ª Onda</span></td>
+                  <td>24/04</td>
+                  <td>39</td>
+                  <td style="font-weight:500">20</td>
+                  <td style="color:#0c447c;font-weight:500">10</td>
+                  <td style="color:#1D9E75;font-weight:500">10</td>
+                  <td style="color:#185fa5;font-weight:500">03/04</td>
+                  <td>10/04</td>
+                  <td style="color:#0f6e56">24/04</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bi">1ª Onda</span></td>
+                  <td>30/04</td>
+                  <td>41</td>
+                  <td style="font-weight:500">21</td>
+                  <td style="color:#0c447c;font-weight:500">11</td>
+                  <td style="color:#1D9E75;font-weight:500">10</td>
+                  <td style="color:#185fa5;font-weight:500">09/04</td>
+                  <td>16/04</td>
+                  <td style="color:#0f6e56">30/04</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bi">1ª Onda</span></td>
+                  <td>08/05</td>
+                  <td>54</td>
+                  <td style="font-weight:500">27</td>
+                  <td style="color:#0c447c;font-weight:500">14</td>
+                  <td style="color:#1D9E75;font-weight:500">13</td>
+                  <td style="color:#185fa5;font-weight:500">17/04</td>
+                  <td>24/04</td>
+                  <td style="color:#0f6e56">08/05</td>
+                </tr>
+                <tr style="background:#f9f8fe">
+                  <td><span class="badge bpu">2ª Onda</span></td>
+                  <td>22/05</td>
+                  <td>82</td>
+                  <td style="font-weight:500">41</td>
+                  <td style="color:#0c447c;font-weight:500">21</td>
+                  <td style="color:#1D9E75;font-weight:500">20</td>
+                  <td style="color:#185fa5;font-weight:500">01/05</td>
+                  <td>08/05</td>
+                  <td style="color:#0f6e56">22/05</td>
+                </tr>
+                <tr style="background:#f9f8fe">
+                  <td><span class="badge bpu">2ª Onda</span></td>
+                  <td>29/05</td>
+                  <td>94</td>
+                  <td style="font-weight:500">47</td>
+                  <td style="color:#0c447c;font-weight:500">24</td>
+                  <td style="color:#1D9E75;font-weight:500">23</td>
+                  <td style="color:#185fa5;font-weight:500">08/05</td>
+                  <td>15/05</td>
+                  <td style="color:#0f6e56">29/05</td>
+                </tr>
+                <tr style="background:#f9f8fe">
+                  <td><span class="badge bpu">2ª Onda</span></td>
+                  <td>05/06</td>
+                  <td>91</td>
+                  <td style="font-weight:500">46</td>
+                  <td style="color:#0c447c;font-weight:500">23</td>
+                  <td style="color:#1D9E75;font-weight:500">23</td>
+                  <td style="color:#185fa5;font-weight:500">15/05</td>
+                  <td>22/05</td>
+                  <td style="color:#0f6e56">05/06</td>
+                </tr>
+                <tr>
+                  <td><span class="badge ba">3ª Onda</span></td>
+                  <td>19/06</td>
+                  <td>98</td>
+                  <td style="font-weight:500">49</td>
+                  <td style="color:#0c447c;font-weight:500">25</td>
+                  <td style="color:#1D9E75;font-weight:500">24</td>
+                  <td style="color:#185fa5;font-weight:500">29/05</td>
+                  <td>05/06</td>
+                  <td style="color:#0f6e56">19/06</td>
+                </tr>
+                <tr>
+                  <td><span class="badge ba">3ª Onda</span></td>
+                  <td>26/06</td>
+                  <td>96</td>
+                  <td style="font-weight:500">48</td>
+                  <td style="color:#0c447c;font-weight:500">24</td>
+                  <td style="color:#1D9E75;font-weight:500">24</td>
+                  <td style="color:#185fa5;font-weight:500">05/06</td>
+                  <td>12/06</td>
+                  <td style="color:#0f6e56">26/06</td>
+                </tr>
+                <tr>
+                  <td><span class="badge ba">3ª Onda</span></td>
+                  <td>03/07</td>
+                  <td>106</td>
+                  <td style="font-weight:500">53</td>
+                  <td style="color:#0c447c;font-weight:500">27</td>
+                  <td style="color:#1D9E75;font-weight:500">26</td>
+                  <td style="color:#185fa5;font-weight:500">12/06</td>
+                  <td>19/06</td>
+                  <td style="color:#0f6e56">03/07</td>
+                </tr>
+                <tr style="background:#fff8fc">
+                  <td><span class="badge" style="background:#fbeaf0;color:#72243e">4ª Onda</span></td>
+                  <td>17/07</td>
+                  <td>99</td>
+                  <td style="font-weight:500">50</td>
+                  <td style="color:#0c447c;font-weight:500">25</td>
+                  <td style="color:#1D9E75;font-weight:500">25</td>
+                  <td style="color:#185fa5;font-weight:500">26/06</td>
+                  <td>03/07</td>
+                  <td style="color:#0f6e56">17/07</td>
+                </tr>
+                <tr style="background:#fff8fc">
+                  <td><span class="badge" style="background:#fbeaf0;color:#72243e">4ª Onda</span></td>
+                  <td>24/07</td>
+                  <td>106</td>
+                  <td style="font-weight:500">53</td>
+                  <td style="color:#0c447c;font-weight:500">27</td>
+                  <td style="color:#1D9E75;font-weight:500">26</td>
+                  <td style="color:#185fa5;font-weight:500">03/07</td>
+                  <td>10/07</td>
+                  <td style="color:#0f6e56">24/07</td>
+                </tr>
+                <tr style="background:#fff8fc">
+                  <td><span class="badge" style="background:#fbeaf0;color:#72243e">4ª Onda</span></td>
+                  <td>31/07</td>
+                  <td>111</td>
+                  <td style="font-weight:500">56</td>
+                  <td style="color:#0c447c;font-weight:500">28</td>
+                  <td style="color:#1D9E75;font-weight:500">28</td>
+                  <td style="color:#185fa5;font-weight:500">10/07</td>
+                  <td>17/07</td>
+                  <td style="color:#0f6e56">31/07</td>
+                </tr>
+                <tr>
+                  <td><span class="badge br">5ª Onda</span></td>
+                  <td>14/08</td>
+                  <td>89</td>
+                  <td style="font-weight:500">45</td>
+                  <td style="color:#0c447c;font-weight:500">23</td>
+                  <td style="color:#1D9E75;font-weight:500">22</td>
+                  <td style="color:#185fa5;font-weight:500">24/07</td>
+                  <td>31/07</td>
+                  <td style="color:#0f6e56">14/08</td>
+                </tr>
+                <tr>
+                  <td><span class="badge br">5ª Onda</span></td>
+                  <td>21/08</td>
+                  <td>92</td>
+                  <td style="font-weight:500">46</td>
+                  <td style="color:#0c447c;font-weight:500">23</td>
+                  <td style="color:#1D9E75;font-weight:500">23</td>
+                  <td style="color:#185fa5;font-weight:500">31/07</td>
+                  <td>07/08</td>
+                  <td style="color:#0f6e56">21/08</td>
+                </tr>
+                <tr>
+                  <td><span class="badge br">5ª Onda</span></td>
+                  <td>28/08</td>
+                  <td>105</td>
+                  <td style="font-weight:500">53</td>
+                  <td style="color:#0c447c;font-weight:500">27</td>
+                  <td style="color:#1D9E75;font-weight:500">26</td>
+                  <td style="color:#185fa5;font-weight:500">07/08</td>
+                  <td>14/08</td>
+                  <td style="color:#0f6e56">28/08</td>
+                </tr>
+                <tr style="background:#f7f7f5">
+                  <td><span class="badge" style="background:#f1efe8;color:#2c2c2a">6ª Onda</span></td>
+                  <td>11/09</td>
+                  <td>78</td>
+                  <td style="font-weight:500">39</td>
+                  <td style="color:#0c447c;font-weight:500">20</td>
+                  <td style="color:#1D9E75;font-weight:500">19</td>
+                  <td style="color:#185fa5;font-weight:500">21/08</td>
+                  <td>28/08</td>
+                  <td style="color:#0f6e56">11/09</td>
+                </tr>
+                <tr style="background:#f7f7f5">
+                  <td><span class="badge" style="background:#f1efe8;color:#2c2c2a">6ª Onda</span></td>
+                  <td>18/09</td>
+                  <td>91</td>
+                  <td style="font-weight:500">46</td>
+                  <td style="color:#0c447c;font-weight:500">23</td>
+                  <td style="color:#1D9E75;font-weight:500">23</td>
+                  <td style="color:#185fa5;font-weight:500">28/08</td>
+                  <td>04/09</td>
+                  <td style="color:#0f6e56">18/09</td>
+                </tr>
+                <tr style="background:#f7f7f5">
+                  <td><span class="badge" style="background:#f1efe8;color:#2c2c2a">6ª Onda</span></td>
+                  <td>25/09</td>
+                  <td>91</td>
+                  <td style="font-weight:500">46</td>
+                  <td style="color:#0c447c;font-weight:500">23</td>
+                  <td style="color:#1D9E75;font-weight:500">23</td>
+                  <td style="color:#185fa5;font-weight:500">04/09</td>
+                  <td>11/09</td>
+                  <td style="color:#0f6e56">25/09</td>
+                </tr>
+                <tr style="background:#f0f7ff;border-top:.5px solid #85b7eb">
+                  <td colspan="2" style="font-weight:500;font-size:12px">Total</td>
+                  <td style="font-weight:500">1.618</td>
+                  <td style="font-weight:500">814</td>
+                  <td style="color:#0c447c;font-weight:500">411</td>
+                  <td style="color:#1D9E75;font-weight:500">403</td>
+                  <td colspan="3"></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="div"></div>
-
-    <div class="s">
-      <div class="st">Sincronização do histórico</div>
-      <div class="warn" style="margin-bottom:.75rem">A sincronização acontece sempre no D-1 (dia anterior à
-        implantação). Apagar o número do app e entrar na call são etapas do dia D.</div>
-      <div class="card">
-        <div
-          style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem">
-          <div style="font-size:13px;font-weight:500">Opção A : bot autônomo</div>
-          <span class="devbadge">em desenvolvimento</span>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#f5f5f3;color:#5f5e5a">1</div>
-            <div class="step-line"></div>
+    <div id="page-sync" class="section-page">
+      <div class="s">
+        <div class="st">Opção A - bot autônomo</div>
+        <div class="warn" style="margin-bottom:.65rem">Sincronização no D-1. O gerente usa o número da loja (não o
+          pessoal) para iniciar o fluxo.</div>
+        <div class="card">
+          <div
+            style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem;flex-wrap:wrap;gap:.5rem">
+            <span style="font-size:13px;font-weight:500">Fluxo via bot</span><span class="devbadge">precisa
+              desenvolver</span></div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#f5f5f3;color:#5f5e5a">1</div>
+              <div class="sline"></div>
+            </div>
+            <div class="sb2">
+              <div class="stitle">Gerente envia mensagem do número da loja</div>
+              <div class="sdesc">Bot valida se consta na lista de ativação. Se não constar, ignora silenciosamente.
+              </div>
+            </div>
           </div>
-          <div class="step-body">
-            <div class="step-title">Gerente manda mensagem do número da loja no D-1</div>
-            <div class="step-desc">O próprio número a ser ativado no dia seguinte inicia a conversa. Bot valida contra a
-              lista de ativação : se não constar, ignora silenciosamente.</div>
-            <div class="warn">A mensagem deve sair do celular da loja, não do celular pessoal do gerente.</div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#f5f5f3;color:#5f5e5a">2</div>
+              <div class="sline"></div>
+            </div>
+            <div class="sb2">
+              <div class="stitle">Bot exibe menu e orienta conexão</div>
+              <div class="sdesc">Gerente seleciona sincronizar histórico. Bot instrui manter app aberto e confirma se
+                pode seguir.</div>
+            </div>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#f5f5f3;color:#5f5e5a">2</div>
-            <div class="step-line"></div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#f5f5f3;color:#5f5e5a">3</div>
+              <div class="sline"></div>
+            </div>
+            <div class="sb2">
+              <div class="stitle">Bot envia QR code para o número da loja</div>
+              <div class="sdesc">Gerente escaneia. Bot aguarda 30s. Se não conectou: orienta apagar e reenvia QR sem
+                limite de tentativas. Se conectou: PedBot inicia sync remotamente (~180 dias via lib WhatsApp).</div>
+            </div>
           </div>
-          <div class="step-body">
-            <div class="step-title">Bot apresenta menu, orienta e envia QR code</div>
-            <div class="step-desc">Gerente seleciona sincronizar histórico. Bot instrui manter o app aberto, confirma se
-              pode seguir, e envia o QR code para o mesmo número.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#f5f5f3;color:#5f5e5a">3</div>
-            <div class="step-line"></div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Gerente escaneia, bot aguarda 30s e confirma</div>
-            <div class="step-desc">Se não conectou: bot orienta apagar conexão e envia novo QR, sem limite de
-              tentativas. Se conectou: PedBot inicia sync remotamente via lib WhatsApp (~180 dias).</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#eaf3de;color:#27500a">4</div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Sync concluída, painel atualizado e atendimento encerrado</div>
-            <div class="step-desc">Número marcado como sincronizado no controle interno. Se a conexão cair durante a
-              sync, bot avisa e retoma o loop do QR.</div>
-            <div style="margin-top:.4rem"><span class="tag">~180 dias de histórico</span><span class="tag">lib
-                WhatsApp</span><span class="tag">PedBot remoto</span></div>
+          <div class="step">
+            <div class="sl">
+              <div class="sd" style="background:#eaf3de;color:#27500a">4</div>
+            </div>
+            <div class="sb2">
+              <div class="stitle">Sync concluída, painel atualizado</div>
+              <div class="sdesc">Bot encerra o atendimento. Número marcado como sincronizado. Se cair durante a sync,
+                bot retoma o loop.</div>
+              <div style="margin-top:.3rem"><span class="tag">~180 dias</span><span class="tag">lib WhatsApp</span><span
+                  class="tag">PedBot remoto</span></div>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="s">
+        <div class="st">Opção B - contingência (call D-1)</div>
         <div class="altbox">
-          <div style="font-size:12px;font-weight:500;color:#5f5e5a;margin-bottom:.4rem">Opção B : contingência (call
-            agendada no D-1)</div>
-          <div style="font-size:12px;color:#5f5e5a">Agenda individual com o gerente no dia anterior. Equipe PedBot entra
-            em call e compartilha tela. Gerente escaneia o QR pela câmera apontando para a tela. PedBot executa
-            remotamente. Painel atualizado ao concluir.</div>
-          <div style="margin-top:.4rem"><span class="tag">call agendada D-1</span><span class="tag">tela
+          <div style="font-size:13px;font-weight:500;margin-bottom:.35rem">Call agendada no D-1</div>
+          <div style="font-size:12px;color:#5f5e5a">Agenda individual com o gerente no dia anterior. PedBot compartilha
+            tela. Gerente escaneia o QR pela câmera. PedBot executa remotamente. Painel atualizado ao concluir.</div>
+          <div style="margin-top:.35rem"><span class="tag">call agendada D-1</span><span class="tag">tela
               compartilhada</span><span class="tag">mesmo resultado final</span></div>
         </div>
       </div>
     </div>
 
-    <div class="div"></div>
-
-    <!-- FLUXO DIA D -->
-    <div class="s">
-      <div class="st">Fluxo completo : D-1 e Dia D</div>
-      <div class="info" style="margin-bottom:.75rem">A sequência abaixo é distribuída em dois dias distintos. Nunca
-        comprimir tudo no dia D.</div>
-      <div class="card">
-        <div style="font-size:12px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">D-1 : dia anterior à implantação
+    <div id="page-crono" class="section-page">
+      <div class="s">
+        <div class="st">Legenda</div>
+        <div class="g4" style="margin-bottom:.75rem">
+          <div class="csm" style="font-size:12px"><span
+              style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#d3d1c7;margin-right:5px;vertical-align:middle"></span><strong>Pré</strong>
+            - comunicação, treinamento, extrações UC</div>
+          <div class="csm-bm" style="font-size:12px"><span
+              style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#85b7eb;margin-right:5px;vertical-align:middle"></span><strong>BMs</strong>
+            - criação (D-21) · entrega (D-14) · verificação até dia D</div>
+          <div class="csm" style="font-size:12px;background:#fffbf0;border:.5px solid #f0c080"><span
+              style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#faeeda;border:.5px solid #f0c080;margin-right:5px;vertical-align:middle"></span><strong>Sync
+              D-1</strong> - sincronização do histórico</div>
+          <div class="csm" style="font-size:12px"><span
+              style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#1D9E75;margin-right:5px;vertical-align:middle"></span><strong>Pós</strong>
+            - plantão, suporte 28 dias</div>
         </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#faeeda;color:#633806;font-size:9px">D-1</div>
-            <div class="step-line"></div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Sincronização do histórico via QR code</div>
-            <div class="step-desc">Opção A (bot autônomo) ou Opção B (call agendada). Número precisa estar ativo no app
-              durante a sync.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#faeeda;color:#633806;font-size:9px">D-1</div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Painel marcado como sincronizado</div>
-            <div class="step-desc">Pré-requisito verificado antes de liberar o gerente para o dia D.</div>
-          </div>
-        </div>
-        <div class="sep"></div>
-        <div style="font-size:12px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">Dia D : dia da implantação</div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#fcebeb;color:#791f1f;font-size:9px">-1h</div>
-            <div class="step-line"></div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Gerente apaga o número do WhatsApp Business App</div>
-            <div class="step-desc">Mínimo 1h antes da agenda. Feito no dia D, após a sync do dia anterior já concluída.
-            </div>
-            <div class="warn">Nunca apagar antes de sincronizar. A sync precisa do app ativo. Apagar antes perde o
-              histórico permanentemente.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#e6f1fb;color:#0c447c">D</div>
-            <div class="step-line"></div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Confirmar: número apagado?</div>
-            <div class="step-desc">Operações verifica antes de abrir cada agenda. Gerente sem número apagado não entra
-              na call.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#e6f1fb;color:#0c447c">D</div>
-            <div class="step-line"></div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">GGL + gerentes entram na agenda</div>
-            <div class="step-desc">GGL supervisiona. PedBot dispara OTPs em massa para todos os números da agenda.
-              Gerentes aguardam código via SMS ou ligação.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#e6f1fb;color:#0c447c">D</div>
-            <div class="step-line"></div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Gerentes informam OTP e saem</div>
-            <div class="step-desc">Cada gerente fala o código e sai imediatamente. Agilidade máxima. PedBot confirma
-              ativação em tempo real.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-left">
-            <div class="step-dot" style="background:#eaf3de;color:#27500a">D</div>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Implantação + teste + go-live</div>
-            <div class="step-desc">Com o número ativo no Cloud, DPSP + PedBot finaliza implantação e testa antes de
-              liberar.</div>
-          </div>
-        </div>
+        <div id="crono-content"></div>
       </div>
     </div>
 
-    <div class="div"></div>
-
-    <!-- AGENDAS -->
-    <div class="s">
-      <div class="st">Agendas do dia D : todos os dias de implantação</div>
-      <div class="g3" style="margin-bottom:1rem">
-        <div class="csm" style="text-align:center">
-          <div
-            style="font-family:monospace;font-size:12px;font-weight:500;background:#f5f5f3;padding:2px 8px;border-radius:4px;display:inline-block">
-            08:00 – 09:30</div>
-          <div style="font-size:11px;color:#73726c;margin-top:4px">Agenda 1</div>
-        </div>
-        <div class="csm" style="text-align:center">
-          <div
-            style="font-family:monospace;font-size:12px;font-weight:500;background:#f5f5f3;padding:2px 8px;border-radius:4px;display:inline-block">
-            15:00 – 16:30</div>
-          <div style="font-size:11px;color:#73726c;margin-top:4px">Agenda 2</div>
-        </div>
-        <div class="csm" style="text-align:center">
-          <div
-            style="font-family:monospace;font-size:12px;font-weight:500;background:#f5f5f3;padding:2px 8px;border-radius:4px;display:inline-block">
-            17:30 – 19:00</div>
-          <div style="font-size:11px;color:#73726c;margin-top:4px">Agenda 3</div>
-        </div>
-      </div>
-
-      <!-- PILOTO -->
-      <div id="wave-piloto" style="margin-bottom:1.5rem">
-        <div
-          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
-          <span
-            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#1D9E75;flex-shrink:0"></span>
-          Piloto
-        </div>
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('p10','cp10')">
-            <div class="onda-meta">
-              <span class="oh-title">10/04/2026</span>
-              <span class="badge bg">55 lojas · 5 GGLs · 55 OTPs</span>
-            </div>
-            <span class="ch" id="cp10">▶</span>
+    <div id="page-agendas" class="section-page">
+      <div class="s">
+        <div class="st">Horários padronizados</div>
+        <div class="g3" style="margin-bottom:.75rem">
+          <div class="csm" style="text-align:center"><span
+              style="font-family:monospace;font-size:12px;font-weight:500">08:00 – 09:30</span>
+            <div style="font-size:11px;color:#73726c;margin-top:3px">Agenda 1</div>
           </div>
-          <div class="ob" id="p10">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sb">
-                  <div style="font-size:12px;font-weight:500">Higor Barros</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ TIJUCA · 8 gerentes</div>
-                </div>
-                <div class="slot sb">
-                  <div style="font-size:12px;font-weight:500">Paola Alonso</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ MEIER · 1 gerente</div>
-                </div>
-                <div
-                  style="font-size:11px;color:#b4b2a9;margin-top:.4rem;padding-top:.4rem;border-top:.5px solid #e0dfd6">
-                  2 GGLs · 9 gerentes</div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sg">
-                  <div style="font-size:12px;font-weight:500">Cesar Mendonça</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP PINHEIROS · 20 gerentes</div>
-                </div>
-                <div
-                  style="font-size:11px;color:#b4b2a9;margin-top:.4rem;padding-top:.4rem;border-top:.5px solid #e0dfd6">
-                  1 GGL · 20 gerentes</div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Vanessa Filipe</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP VILA MARIANA · 12 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Gisella Okumura</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP BAURU · 14 gerentes</div>
-                </div>
-                <div
-                  style="font-size:11px;color:#b4b2a9;margin-top:.4rem;padding-top:.4rem;border-top:.5px solid #e0dfd6">
-                  2 GGLs · 26 gerentes</div>
-              </div>
-            </div>
+          <div class="csm" style="text-align:center"><span
+              style="font-family:monospace;font-size:12px;font-weight:500">15:00 – 16:30</span>
+            <div style="font-size:11px;color:#73726c;margin-top:3px">Agenda 2</div>
+          </div>
+          <div class="csm" style="text-align:center"><span
+              style="font-family:monospace;font-size:12px;font-weight:500">17:30 – 19:00</span>
+            <div style="font-size:11px;color:#73726c;margin-top:3px">Agenda 3</div>
           </div>
         </div>
-      </div>
-
-      <!-- 1ª ONDA -->
-      <div id="wave-1" style="margin-bottom:1.5rem">
-        <div
-          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
-          <span
-            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#378ADD;flex-shrink:0"></span>
-          1ª Onda : 134 lojas
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o1a','co1a')">
-            <div class="onda-meta"><span class="oh-title">24/04/2026</span><span class="badge bi">39 lojas · 2 GGLs · 39
-                OTPs</span></div>
-            <span class="ch" id="co1a">▶</span>
-          </div>
-          <div class="ob" id="o1a">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sb">
-                  <div style="font-size:12px;font-weight:500">Andre Ramos</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP ALPHAVILLE · 19 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sg">
-                  <div style="font-size:12px;font-weight:500">Thamiris Almeida</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP HIGIENOPOLIS · 20 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div class="afree">
-                  <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a">17:30 – 19:00</div>
-                  <div style="font-size:11px;color:#b4b2a9">livre</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o1b','co1b')">
-            <div class="onda-meta"><span class="oh-title">30/04/2026</span><span class="badge bi">41 lojas · 2 GGLs · 41
-                OTPs</span></div>
-            <span class="ch" id="co1b">▶</span>
-          </div>
-          <div class="ob" id="o1b">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sb">
-                  <div style="font-size:12px;font-weight:500">Bruna Panhota</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP OSASCO · 21 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sg">
-                  <div style="font-size:12px;font-weight:500">Fabio Freitas</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP PAULISTA · 20 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div class="afree">
-                  <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a">17:30 – 19:00</div>
-                  <div style="font-size:11px;color:#b4b2a9">livre</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o1c','co1c')">
-            <div class="onda-meta"><span class="oh-title">08/05/2026</span><span class="badge bi">54 lojas · 3 GGLs · 54
-                OTPs</span></div>
-            <span class="ch" id="co1c">▶</span>
-          </div>
-          <div class="ob" id="o1c">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sb">
-                  <div style="font-size:12px;font-weight:500">Maysa Pinto</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP FREGUESIA · 19 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sg">
-                  <div style="font-size:12px;font-weight:500">Fabio Santos</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP JARDINS · 17 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Beatriz Souza</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP RAPOSO · 18 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2ª ONDA -->
-      <div id="wave-2" style="margin-bottom:1.5rem">
-        <div
-          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
-          <span
-            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#7F77DD;flex-shrink:0"></span>
-          2ª Onda : 267 lojas
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o2a','co2a')">
-            <div class="onda-meta"><span class="oh-title">22/05/2026</span><span class="badge bpurple">82 lojas · 4 GGLs
-                · 82 OTPs</span></div>
-            <span class="ch" id="co2a">▶</span>
-          </div>
-          <div class="ob" id="o2a">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Sérgio Correia</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ CAMPO GRANDE · 23 gerentes</div>
-                </div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Lucas Santos</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ MADUREIRA · 19 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Gabriela Holmes</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ NOVA IGUACU · 21 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Iara Marquss</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ RECREIO · 19 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o2b','co2b')">
-            <div class="onda-meta"><span class="oh-title">29/05/2026</span><span class="badge bpurple">94 lojas · 5 GGLs
-                · 94 OTPs</span></div>
-            <span class="ch" id="co2b">▶</span>
-          </div>
-          <div class="ob" id="o2b">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Mayara Monteiro</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ BANGU · 20 gerentes</div>
-                </div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">EM CONTRATAÇÃO</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ CAXIAS · 19 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Paola Alonso</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ MEIER · 17 gerentes</div>
-                </div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">EM CONTRATAÇÃO</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ PENHA · 20 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Matheus Gomes</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ SUL FLUMINENSE · 18 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o2c','co2c')">
-            <div class="onda-meta"><span class="oh-title">05/06/2026</span><span class="badge bpurple">91 lojas · 6 GGLs
-                · 91 OTPs</span></div>
-            <span class="ch" id="co2c">▶</span>
-          </div>
-          <div class="ob" id="o2c">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Charles Brandão</div>
-                  <div style="font-size:11px;color:#5f5e5a">DF ASA NORTE · 15 gerentes</div>
-                </div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Josiane Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">DF ASA SUL · 15 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Dieizibel Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">GO GOIANIA CENTRAL · 20 gerentes</div>
-                </div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Bruno Rocha</div>
-                  <div style="font-size:11px;color:#5f5e5a">GO GOIANIA+INTERIOR · 18 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Nicolas Voinarovski</div>
-                  <div style="font-size:11px;color:#5f5e5a">MT CUIABA · 14 gerentes</div>
-                </div>
-                <div class="slot sp">
-                  <div style="font-size:12px;font-weight:500">Cléber Martins</div>
-                  <div style="font-size:11px;color:#5f5e5a">MT INTERIOR · 9 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3ª ONDA -->
-      <div id="wave-3" style="margin-bottom:1.5rem">
-        <div
-          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
-          <span
-            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#EF9F27;flex-shrink:0"></span>
-          3ª Onda : 300 lojas
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o3a','co3a')">
-            <div class="onda-meta"><span class="oh-title">19/06/2026</span><span class="badge ba">98 lojas · 6 GGLs · 98
-                OTPs</span></div>
-            <span class="ch" id="co3a">▶</span>
-          </div>
-          <div class="ob" id="o3a">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Ivan Oliveira</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP ARARAQUARA · 17 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Rasmye Halawa</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP CATANDUVA · 13 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Camila Andressa</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP LIMEIRA · 18 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Leandro Siqueira</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP PRESIDENTE PRUDENTE · 17 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Diogo Melo</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP RIBEIRAO PRETO · 17 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Beatriz Reis</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SAO JOSE DO RIO PRETO · 16 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o3b','co3b')">
-            <div class="onda-meta"><span class="oh-title">26/06/2026</span><span class="badge ba">96 lojas · 5 GGLs · 96
-                OTPs</span></div>
-            <span class="ch" id="co3b">▶</span>
-          </div>
-          <div class="ob" id="o3b">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Victor Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP DIADEMA · 19 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Carlos Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP INTERLAGOS · 20 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Carol Nogueira</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP IPIRANGA · 19 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Antonio Marcos</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP MOEMA · 19 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Danillo Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP MORUMBI · 19 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o3c','co3c')">
-            <div class="onda-meta"><span class="oh-title">03/07/2026</span><span class="badge ba">106 lojas · 6 GGLs ·
-                106 OTPs</span></div>
-            <span class="ch" id="co3c">▶</span>
-          </div>
-          <div class="ob" id="o3c">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">EM PROCESSO</div>
-                  <div style="font-size:11px;color:#5f5e5a">ES VILA VELHA · 21 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Glaucio Dias</div>
-                  <div style="font-size:11px;color:#5f5e5a">ES VITORIA · 21 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Felipe Tupinambá</div>
-                  <div style="font-size:11px;color:#5f5e5a">PR PARANA · 11 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Ana Santos</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP CAMPO BELO · 18 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Thais Araki</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP JABAQUARA · 17 gerentes</div>
-                </div>
-                <div class="slot sa">
-                  <div style="font-size:12px;font-weight:500">Thiago Casado</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP TABOAO · 18 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4ª ONDA -->
-      <div id="wave-4" style="margin-bottom:1.5rem">
-        <div
-          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
-          <span
-            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#D4537E;flex-shrink:0"></span>
-          4ª Onda : 316 lojas
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o4a','co4a')">
-            <div class="onda-meta"><span class="oh-title">17/07/2026</span><span class="badge"
-                style="background:#fbeaf0;color:#72243e">99 lojas · 5 GGLs · 99 OTPs</span></div>
-            <span class="ch" id="co4a">▶</span>
-          </div>
-          <div class="ob" id="o4a">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Hargeisa Martins</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ COPACABANA · 19 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Danielle Albernaz</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ IPANEMA · 17 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">David Neves</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ JACAREPAGUA · 18 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Douglas Godim</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ LAGOS · 23 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Camila Moura</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ SAO GONCALO NITEROI · 22 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o4b','co4b')">
-            <div class="onda-meta"><span class="oh-title">24/07/2026</span><span class="badge"
-                style="background:#fbeaf0;color:#72243e">106 lojas · 6 GGLs · 106 OTPs</span></div>
-            <span class="ch" id="co4b">▶</span>
-          </div>
-          <div class="ob" id="o4b">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Gabriella Gonçalves</div>
-                  <div style="font-size:11px;color:#5f5e5a">MG BH CENTRO+INTERIOR · 17 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Poliana Matos</div>
-                  <div style="font-size:11px;color:#5f5e5a">MG NORTE BH · 17 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Daniela Jesus</div>
-                  <div style="font-size:11px;color:#5f5e5a">MG OESTE BH · 21 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Gil Cesar</div>
-                  <div style="font-size:11px;color:#5f5e5a">MG SUL BH · 19 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Julian Maia</div>
-                  <div style="font-size:11px;color:#5f5e5a">MG SUL DE MINAS · 13 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Natalia Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">MG ZONA DA MATA · 19 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o4c','co4c')">
-            <div class="onda-meta"><span class="oh-title">31/07/2026</span><span class="badge"
-                style="background:#fbeaf0;color:#72243e">111 lojas · 6 GGLs · 111 OTPs</span></div>
-            <span class="ch" id="co4c">▶</span>
-          </div>
-          <div class="ob" id="o4c">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Camila Lopes</div>
-                  <div style="font-size:11px;color:#5f5e5a">MG TRIANGULO MINEIRO · 17 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Janis Joplin</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ BARRA · 17 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Thaís Cruz</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ CAMPOS · 19 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Raphael Benedito</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ CENTRO · 17 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Wellyngton Gois</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ NITEROI OCEANICA · 22 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Raquel Jesus</div>
-                  <div style="font-size:11px;color:#5f5e5a">RJ SERRANA · 19 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5ª ONDA -->
-      <div id="wave-5" style="margin-bottom:1.5rem">
-        <div
-          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
-          <span
-            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#D85A30;flex-shrink:0"></span>
-          5ª Onda : 286 lojas
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o5a','co5a')">
-            <div class="onda-meta"><span class="oh-title">14/08/2026</span><span class="badge br">89 lojas · 5 GGLs · 89
-                OTPs</span></div>
-            <span class="ch" id="co5a">▶</span>
-          </div>
-          <div class="ob" id="o5a">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Alessandra Esnal</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP ITAQUERA · 18 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Alex Batista</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP JARDIM SAO PAULO · 18 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Airam Duarte</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP MOOCA · 17 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Adriana Rota</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SANTANA · 18 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Bruna Marin</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP TATUAPE · 18 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o5b','co5b')">
-            <div class="onda-meta"><span class="oh-title">21/08/2026</span><span class="badge br">92 lojas · 5 GGLs · 92
-                OTPs</span></div>
-            <span class="ch" id="co5b">▶</span>
-          </div>
-          <div class="ob" id="o5b">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Camila Borges</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP ARICANDUVA · 17 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Joao Nogueira</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP GUARULHOS · 19 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Juliana Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP MOGI · 18 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Marcelo Rodrigues</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SAO MIGUEL · 18 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Leandro Raimundo</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SOROCABA · 20 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o5c','co5c')">
-            <div class="onda-meta"><span class="oh-title">28/08/2026</span><span class="badge br">105 lojas · 6 GGLs ·
-                105 OTPs</span></div>
-            <span class="ch" id="co5c">▶</span>
-          </div>
-          <div class="ob" id="o5c">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Fernando Luchine</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP AMERICANA · 15 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Jaqueline Amati</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP ATIBAIA · 19 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Giovana Penariol</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP CAMPINAS · 18 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Mariley Tomazini</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP IGUATEMI CAMPINAS · 20 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Rafael Miguel</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP ITU · 15 gerentes</div>
-                </div>
-                <div class="slot sr">
-                  <div style="font-size:12px;font-weight:500">Samuel Goncalves</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP JUNDIAI · 18 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6ª ONDA -->
-      <div id="wave-6" style="margin-bottom:1.5rem">
-        <div
-          style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem">
-          <span
-            style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#888780;flex-shrink:0"></span>
-          6ª Onda : 260 lojas
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o6a','co6a')">
-            <div class="onda-meta"><span class="oh-title">11/09/2026</span><span class="badge"
-                style="background:#f1efe8;color:#2c2c2a">78 lojas · 4 GGLs · 78 OTPs</span></div>
-            <span class="ch" id="co6a">▶</span>
-          </div>
-          <div class="ob" id="o6a">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Caio Monteiro</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SANTOS · 16 gerentes</div>
-                </div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Cristiane Cruz</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SAO BERNARDO · 21 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Gledson Floriano</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SAO JOSE DOS CAMPOS · 22 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Fernanda Roberta</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP VALE DO PARAIBA · 19 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o6b','co6b')">
-            <div class="onda-meta"><span class="oh-title">18/09/2026</span><span class="badge"
-                style="background:#f1efe8;color:#2c2c2a">91 lojas · 5 GGLs · 91 OTPs</span></div>
-            <span class="ch" id="co6b">▶</span>
-          </div>
-          <div class="ob" id="o6b">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Alan Costa</div>
-                  <div style="font-size:11px;color:#5f5e5a">BA SSA CENTRO · 19 gerentes</div>
-                </div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Rogerio Carvalho</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP LITORAL NORTE · 14 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Hocia Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP LITORAL SUL · 17 gerentes</div>
-                </div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Jaques Amorim</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SANTO ANDRE · 21 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Karla Duarte</div>
-                  <div style="font-size:11px;color:#5f5e5a">SP SAO CAETANO · 20 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom:8px">
-          <div class="oh" onclick="tog('o6c','co6c')">
-            <div class="onda-meta"><span class="oh-title">25/09/2026</span><span class="badge"
-                style="background:#f1efe8;color:#2c2c2a">91 lojas · 6 GGLs · 91 OTPs</span></div>
-            <span class="ch" id="co6c">▶</span>
-          </div>
-          <div class="ob" id="o6c">
-            <div class="g3" style="margin-top:.75rem">
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  08:00 – 09:30</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Joel Araujo</div>
-                  <div style="font-size:11px;color:#5f5e5a">BA INTERIOR · 13 gerentes</div>
-                </div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Marli Ferreira</div>
-                  <div style="font-size:11px;color:#5f5e5a">BA SSA METROPOLITANA · 16 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  15:00 – 16:30</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Catarina Oliveira</div>
-                  <div style="font-size:11px;color:#5f5e5a">BA SSA NORTE · 14 gerentes</div>
-                </div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Tiago Cruz</div>
-                  <div style="font-size:11px;color:#5f5e5a">BA SSA SUL · 16 gerentes</div>
-                </div>
-              </div>
-              <div class="acard">
-                <div style="font-family:monospace;font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:.5rem">
-                  17:30 – 19:00</div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Malhaine Santos</div>
-                  <div style="font-size:11px;color:#5f5e5a">PE NORTE · 16 gerentes</div>
-                </div>
-                <div class="slot" style="border-color:#888780">
-                  <div style="font-size:12px;font-weight:500">Reinaldo Silva</div>
-                  <div style="font-size:11px;color:#5f5e5a">PE SUL · 16 gerentes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="agendas-content"></div>
       </div>
     </div>
 
-    <div class="div"></div>
-
-    <!-- CHECKLIST -->
-    <div class="s">
-      <div class="st">Checklist por loja</div>
-      <div class="card">
-        <table>
-          <tr>
-            <th>Quando</th>
-            <th>Etapa</th>
-            <th>Quem</th>
-            <th>Obs</th>
-          </tr>
-          <tr>
-            <td><span class="badge ba">D-1</span></td>
-            <td>Sincronização via QR code (app ainda ativo)</td>
-            <td>Gerente + PedBot</td>
-            <td>Opção A ou B</td>
-          </tr>
-          <tr>
-            <td><span class="badge ba">D-1</span></td>
-            <td>Painel marcado como sincronizado (Visando Opção A)</td>
-            <td>Automação</td>
-            <td>Pré-requisito para o dia D</td>
-          </tr>
-          <tr>
-            <td><span class="badge br">D -1h</span></td>
-            <td>Gerente apaga número do app</td>
-            <td>Gerente</td>
-            <td>Após sync do D-1</td>
-          </tr>
-          <tr>
-            <td><span class="badge bi">Dia D</span></td>
-            <td>Confirmar: número apagado?</td>
-            <td>Operações</td>
-            <td>Antes de abrir agenda</td>
-          </tr>
-          <tr>
-            <td><span class="badge bi">Dia D</span></td>
-            <td>GGL + gerentes entram na agenda</td>
-            <td>GGL + Gerentes</td>
-            <td>Horário padronizado</td>
-          </tr>
-          <tr>
-            <td><span class="badge bi">Dia D</span></td>
-            <td>OTP disparado em massa</td>
-            <td>PedBot + Vonage</td>
-            <td>Todos da agenda</td>
-          </tr>
-          <tr>
-            <td><span class="badge bi">Dia D</span></td>
-            <td>Gerentes informam OTP e saem</td>
-            <td>Gerentes</td>
-            <td>Agilidade máxima</td>
-          </tr>
-          <tr>
-            <td><span class="badge bg">Dia D</span></td>
-            <td>Implantação + teste + go-live</td>
-            <td>PedBot</td>
-            <td>Número Ativado</td>
-          </tr>
-        </table>
+    <div id="page-checklist" class="section-page">
+      <div class="s">
+        <div class="st">Checklist por loja</div>
+        <div class="card">
+          <table>
+            <tr>
+              <th>Quando</th>
+              <th>Etapa</th>
+              <th>Quem</th>
+              <th>Obs</th>
+            </tr>
+            <tr style="background:#f0f7ff">
+              <td><span class="badge bbm">D-21</span></td>
+              <td><strong>Início criação dos BMs</strong></td>
+              <td>DPSP + PedBot</td>
+              <td>Em paralelo · 7 dias para criar</td>
+            </tr>
+            <tr style="background:#f0f7ff">
+              <td><span class="badge bbm">D-14</span></td>
+              <td><strong>Entrega BMs + início verificação</strong></td>
+              <td>DPSP + PedBot</td>
+              <td>BM saudável = suficiente para dia D</td>
+            </tr>
+            <tr>
+              <td><span class="badge ba">D-1</span></td>
+              <td>Sincronização via QR code (app ativo)</td>
+              <td>Gerente + PedBot</td>
+              <td>Opção A (bot) ou B (call)</td>
+            </tr>
+            <tr>
+              <td><span class="badge ba">D-1</span></td>
+              <td>Painel marcado como sincronizado</td>
+              <td>Automação</td>
+              <td>Pré-requisito para o dia D</td>
+            </tr>
+            <tr>
+              <td><span class="badge br">D -1h</span></td>
+              <td>Gerente apaga número do app</td>
+              <td>Gerente</td>
+              <td>Após sync do D-1</td>
+            </tr>
+            <tr>
+              <td><span class="badge bi">Dia D</span></td>
+              <td>Confirmar: número apagado?</td>
+              <td>Operações</td>
+              <td>Antes de abrir a agenda</td>
+            </tr>
+            <tr>
+              <td><span class="badge bi">Dia D</span></td>
+              <td>GGL + gerentes entram na agenda</td>
+              <td>GGL + Gerentes</td>
+              <td>Horário padronizado</td>
+            </tr>
+            <tr>
+              <td><span class="badge bi">Dia D</span></td>
+              <td>OTP disparado em massa</td>
+              <td>PedBot</td>
+              <td>Todos da agenda de uma vez</td>
+            </tr>
+            <tr>
+              <td><span class="badge bi">Dia D</span></td>
+              <td>Gerentes informam OTP e saem</td>
+              <td>Gerentes</td>
+              <td>Agilidade máxima</td>
+            </tr>
+            <tr>
+              <td><span class="badge bg">Dia D</span></td>
+              <td>Implantação + teste + go-live</td>
+              <td>DPSP + PedBot</td>
+              <td>Painel: ativado</td>
+            </tr>
+            <tr style="background:#f0f7ff">
+              <td><span class="badge bver">Pós D</span></td>
+              <td>Verificação BMs (se pendente)</td>
+              <td>PedBot</td>
+              <td>Contínua, não bloqueante</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
 
   </div>
+
   <script>
+    const TIMES = ['08:00 – 09:30', '15:00 – 16:30', '17:30 – 19:00'];
+
+    const WAVES = [
+      {
+        label: 'Piloto', color: '#1D9E75', lojas: 55,
+        pre: [
+          { d: '20/03', e: 'Início criação BMs - Piloto', bm: true, bmsub: '28 BMs · DPSP 14 + PedBot 14 · 7 dias' },
+          { d: '24/03', e: 'Preparação News' },
+          { d: '27/03', e: 'Entrega BMs - D-14', ver: true, bmsub: 'início verificação · BM saudável = suficiente para dia D' },
+          { d: '31/03', e: 'Kick-off + material treinamento' },
+          { d: '31/03', e: 'Treinamento via UC (55 lojas)' },
+          { d: '03/04', e: 'Extração UC (1)' }, { d: '06/04', e: 'Extração UC (2)' }, { d: '08/04', e: 'Extração UC (3)' },
+          { d: '09/04', e: 'Sync D-1 (55 lojas)', sync: true }
+        ],
+        imp: [{
+          date: '10/04/2026', lojas: 55, bms: { inicio: '20/03', entrega: '27/03', total: 28, dpsp: 14, pedbot: 14 }, sync: '09/04', ags: [
+            [{ n: 'Higor Barros', r: 'RJ TIJUCA', q: 8 }, { n: 'Paola Alonso', r: 'RJ MEIER', q: 1 }],
+            [{ n: 'Cesar Mendonça', r: 'SP PINHEIROS', q: 20 }],
+            [{ n: 'Vanessa Filipe', r: 'SP VILA MARIANA', q: 12 }, { n: 'Gisella Okumura', r: 'SP BAURU', q: 14 }]
+          ]
+        }],
+        pos: [{ d: '14/04', e: 'Plantão (55 lojas)' }, { d: '10/04 – 24/04', e: 'Suporte e monitoramento (14 dias)' }]
+      },
+
+      {
+        label: '1ª Onda', color: '#378ADD', lojas: 134,
+        pre: [
+          { d: '03/04', e: 'Início criação BMs - impl.1', bm: true, bmsub: '20 BMs · DPSP 10 + PedBot 10' },
+          { d: '07/04', e: 'Preparação News' },
+          { d: '09/04', e: 'Início criação BMs - impl.2', bm: true, bmsub: '21 BMs · DPSP 11 + PedBot 10' },
+          { d: '10/04', e: 'Entrega BMs impl.1 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '15/04', e: 'Kick-off + material treinamento' },
+          { d: '15/04', e: 'Treinamento via UC (134 lojas)' },
+          { d: '16/04', e: 'Entrega BMs impl.2 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '17/04', e: 'Início criação BMs - impl.3', bm: true, bmsub: '27 BMs · DPSP 14 + PedBot 13' },
+          { d: '17/04', e: 'Extração UC (1)' }, { d: '20/04', e: 'Extração UC (2)' }, { d: '22/04', e: 'Extração UC (3)' },
+          { d: '23/04', e: 'Sync D-1 impl.1 (39 lojas)', sync: true },
+          { d: '24/04', e: 'Entrega BMs impl.3 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '29/04', e: 'Sync D-1 impl.2 (41 lojas)', sync: true },
+          { d: '07/05', e: 'Sync D-1 impl.3 (54 lojas)', sync: true }
+        ],
+        imp: [
+          { date: '24/04/2026', lojas: 39, bms: { inicio: '03/04', entrega: '10/04', total: 20, dpsp: 10, pedbot: 10 }, sync: '23/04', ags: [[{ n: 'Andre Ramos', r: 'SP ALPHAVILLE', q: 19 }], [{ n: 'Thamiris Almeida', r: 'SP HIGIENOPOLIS', q: 20 }], []] },
+          { date: '30/04/2026', lojas: 41, bms: { inicio: '09/04', entrega: '16/04', total: 21, dpsp: 11, pedbot: 10 }, sync: '29/04', ags: [[{ n: 'Bruna Panhota', r: 'SP OSASCO', q: 21 }], [{ n: 'Fabio Freitas', r: 'SP PAULISTA', q: 20 }], []] },
+          { date: '08/05/2026', lojas: 54, bms: { inicio: '17/04', entrega: '24/04', total: 27, dpsp: 14, pedbot: 13 }, sync: '07/05', ags: [[{ n: 'Maysa Pinto', r: 'SP FREGUESIA', q: 19 }], [{ n: 'Fabio Santos', r: 'SP JARDINS', q: 17 }], [{ n: 'Beatriz Souza', r: 'SP RAPOSO', q: 18 }]] }
+        ],
+        pos: [{ d: '28/04', e: 'Plantão (39 lojas)' }, { d: '05/05', e: 'Plantão (41 lojas)' }, { d: '12/05', e: 'Plantão (54 lojas)' }, { d: '24/04 – 22/05', e: 'Suporte e monitoramento (28 dias)' }]
+      },
+
+      {
+        label: '2ª Onda', color: '#7F77DD', lojas: 267,
+        pre: [
+          { d: '01/05', e: 'Início criação BMs - impl.1', bm: true, bmsub: '41 BMs · DPSP 21 + PedBot 20' },
+          { d: '05/05', e: 'Preparação News' },
+          { d: '08/05', e: 'Início criação BMs - impl.2', bm: true, bmsub: '47 BMs · DPSP 24 + PedBot 23' },
+          { d: '08/05', e: 'Entrega BMs impl.1 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '13/05', e: 'Kick-off + material treinamento' },
+          { d: '13/05', e: 'Treinamento via UC (267 lojas)' },
+          { d: '15/05', e: 'Início criação BMs - impl.3', bm: true, bmsub: '46 BMs · DPSP 23 + PedBot 23' },
+          { d: '15/05', e: 'Entrega BMs impl.2 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '15/05', e: 'Extração UC (1)' }, { d: '18/05', e: 'Extração UC (2)' }, { d: '20/05', e: 'Extração UC (3)' },
+          { d: '21/05', e: 'Sync D-1 impl.1 (82 lojas)', sync: true },
+          { d: '22/05', e: 'Entrega BMs impl.3 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '28/05', e: 'Sync D-1 impl.2 (94 lojas)', sync: true },
+          { d: '04/06', e: 'Sync D-1 impl.3 (91 lojas)', sync: true }
+        ],
+        imp: [
+          { date: '22/05/2026', lojas: 82, bms: { inicio: '01/05', entrega: '08/05', total: 41, dpsp: 21, pedbot: 20 }, sync: '21/05', ags: [[{ n: 'Sérgio Correia', r: 'RJ CAMPO GRANDE', q: 23 }, { n: 'Lucas Santos', r: 'RJ MADUREIRA', q: 19 }], [{ n: 'Gabriela Holmes', r: 'RJ NOVA IGUACU', q: 21 }], [{ n: 'Iara Marquss', r: 'RJ RECREIO', q: 19 }]] },
+          { date: '29/05/2026', lojas: 94, bms: { inicio: '08/05', entrega: '15/05', total: 47, dpsp: 24, pedbot: 23 }, sync: '28/05', ags: [[{ n: 'Mayara Monteiro', r: 'RJ BANGU', q: 20 }, { n: 'Em contratação', r: 'RJ CAXIAS', q: 19 }], [{ n: 'Paola Alonso', r: 'RJ MEIER', q: 17 }, { n: 'Em contratação', r: 'RJ PENHA', q: 20 }], [{ n: 'Matheus Gomes', r: 'RJ SUL FLUMINENSE', q: 18 }]] },
+          { date: '05/06/2026', lojas: 91, bms: { inicio: '15/05', entrega: '22/05', total: 46, dpsp: 23, pedbot: 23 }, sync: '04/06', ags: [[{ n: 'Charles Brandão', r: 'DF ASA NORTE', q: 15 }, { n: 'Josiane Silva', r: 'DF ASA SUL', q: 15 }], [{ n: 'Dieizibel Silva', r: 'GO GOIANIA CENTRAL', q: 20 }, { n: 'Bruno Rocha', r: 'GO GOIANIA+INTERIOR', q: 18 }], [{ n: 'Nicolas Voinarovski', r: 'MT CUIABA', q: 14 }, { n: 'Cléber Martins', r: 'MT INTERIOR', q: 9 }]] }
+        ],
+        pos: [{ d: '26/05', e: 'Plantão (82 lojas)' }, { d: '02/06', e: 'Plantão (94 lojas)' }, { d: '09/06', e: 'Plantão (91 lojas)' }, { d: '22/05 – 19/06', e: 'Suporte e monitoramento (28 dias)' }]
+      },
+
+      {
+        label: '3ª Onda', color: '#EF9F27', lojas: 300,
+        pre: [
+          { d: '29/05', e: 'Início criação BMs - impl.1', bm: true, bmsub: '49 BMs · DPSP 25 + PedBot 24' },
+          { d: '02/06', e: 'Preparação News' },
+          { d: '05/06', e: 'Início criação BMs - impl.2', bm: true, bmsub: '48 BMs · DPSP 24 + PedBot 24' },
+          { d: '05/06', e: 'Entrega BMs impl.1 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '10/06', e: 'Kick-off + material treinamento' },
+          { d: '10/06', e: 'Treinamento via UC (300 lojas)' },
+          { d: '12/06', e: 'Entrega BMs impl.2 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '12/06', e: 'Início criação BMs - impl.3', bm: true, bmsub: '53 BMs · DPSP 27 + PedBot 26' },
+          { d: '12/06', e: 'Extração UC (1)' }, { d: '15/06', e: 'Extração UC (2)' }, { d: '17/06', e: 'Extração UC (3)' },
+          { d: '18/06', e: 'Sync D-1 impl.1 (98 lojas)', sync: true },
+          { d: '19/06', e: 'Entrega BMs impl.3 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '25/06', e: 'Sync D-1 impl.2 (96 lojas)', sync: true },
+          { d: '02/07', e: 'Sync D-1 impl.3 (106 lojas)', sync: true }
+        ],
+        imp: [
+          { date: '19/06/2026', lojas: 98, bms: { inicio: '29/05', entrega: '05/06', total: 49, dpsp: 25, pedbot: 24 }, sync: '18/06', ags: [[{ n: 'Ivan Oliveira', r: 'SP ARARAQUARA', q: 17 }, { n: 'Rasmye Halawa', r: 'SP CATANDUVA', q: 13 }], [{ n: 'Camila Andressa', r: 'SP LIMEIRA', q: 18 }, { n: 'Leandro Siqueira', r: 'SP PRESIDENTE PRUDENTE', q: 17 }], [{ n: 'Diogo Melo', r: 'SP RIBEIRAO PRETO', q: 17 }, { n: 'Beatriz Reis', r: 'SP SAO JOSE DO RIO PRETO', q: 16 }]] },
+          { date: '26/06/2026', lojas: 96, bms: { inicio: '05/06', entrega: '12/06', total: 48, dpsp: 24, pedbot: 24 }, sync: '25/06', ags: [[{ n: 'Victor Silva', r: 'SP DIADEMA', q: 19 }, { n: 'Carlos Silva', r: 'SP INTERLAGOS', q: 20 }], [{ n: 'Carol Nogueira', r: 'SP IPIRANGA', q: 19 }, { n: 'Antonio Marcos', r: 'SP MOEMA', q: 19 }], [{ n: 'Danillo Silva', r: 'SP MORUMBI', q: 19 }]] },
+          { date: '03/07/2026', lojas: 106, bms: { inicio: '12/06', entrega: '19/06', total: 53, dpsp: 27, pedbot: 26 }, sync: '02/07', ags: [[{ n: 'Em processo', r: 'ES VILA VELHA', q: 21 }, { n: 'Glaucio Dias', r: 'ES VITORIA', q: 21 }], [{ n: 'Felipe Tupinambá', r: 'PR PARANA', q: 11 }, { n: 'Ana Santos', r: 'SP CAMPO BELO', q: 18 }], [{ n: 'Thais Araki', r: 'SP JABAQUARA', q: 17 }, { n: 'Thiago Casado', r: 'SP TABOAO', q: 18 }]] }
+        ],
+        pos: [{ d: '23/06', e: 'Plantão (98 lojas)' }, { d: '30/06', e: 'Plantão (96 lojas)' }, { d: '07/07', e: 'Plantão (106 lojas)' }, { d: '19/06 – 17/07', e: 'Suporte e monitoramento (28 dias)' }]
+      },
+
+      {
+        label: '4ª Onda', color: '#D4537E', lojas: 316,
+        pre: [
+          { d: '26/06', e: 'Início criação BMs - impl.1', bm: true, bmsub: '50 BMs · DPSP 25 + PedBot 25' },
+          { d: '30/06', e: 'Preparação News' },
+          { d: '03/07', e: 'Início criação BMs - impl.2', bm: true, bmsub: '53 BMs · DPSP 27 + PedBot 26' },
+          { d: '03/07', e: 'Entrega BMs impl.1 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '08/07', e: 'Kick-off + material treinamento' },
+          { d: '08/07', e: 'Treinamento via UC (316 lojas)' },
+          { d: '10/07', e: 'Entrega BMs impl.2 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '10/07', e: 'Início criação BMs - impl.3', bm: true, bmsub: '56 BMs · DPSP 28 + PedBot 28' },
+          { d: '10/07', e: 'Extração UC (1)' }, { d: '13/07', e: 'Extração UC (2)' }, { d: '15/07', e: 'Extração UC (3)' },
+          { d: '16/07', e: 'Sync D-1 impl.1 (99 lojas)', sync: true },
+          { d: '17/07', e: 'Entrega BMs impl.3 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '23/07', e: 'Sync D-1 impl.2 (106 lojas)', sync: true },
+          { d: '30/07', e: 'Sync D-1 impl.3 (111 lojas)', sync: true }
+        ],
+        imp: [
+          { date: '17/07/2026', lojas: 99, bms: { inicio: '26/06', entrega: '03/07', total: 50, dpsp: 25, pedbot: 25 }, sync: '16/07', ags: [[{ n: 'Hargeisa Martins', r: 'RJ COPACABANA', q: 19 }, { n: 'Danielle Albernaz', r: 'RJ IPANEMA', q: 17 }], [{ n: 'David Neves', r: 'RJ JACAREPAGUA', q: 18 }, { n: 'Douglas Godim', r: 'RJ LAGOS', q: 23 }], [{ n: 'Camila Moura', r: 'RJ SAO GONCALO NITEROI', q: 22 }]] },
+          { date: '24/07/2026', lojas: 106, bms: { inicio: '03/07', entrega: '10/07', total: 53, dpsp: 27, pedbot: 26 }, sync: '23/07', ags: [[{ n: 'Gabriella Gonçalves', r: 'MG BH CENTRO+INTERIOR', q: 17 }, { n: 'Poliana Matos', r: 'MG NORTE BH', q: 17 }], [{ n: 'Daniela Jesus', r: 'MG OESTE BH', q: 21 }, { n: 'Gil Cesar', r: 'MG SUL BH', q: 19 }], [{ n: 'Julian Maia', r: 'MG SUL DE MINAS', q: 13 }, { n: 'Natalia Silva', r: 'MG ZONA DA MATA', q: 19 }]] },
+          { date: '31/07/2026', lojas: 111, bms: { inicio: '10/07', entrega: '17/07', total: 56, dpsp: 28, pedbot: 28 }, sync: '30/07', ags: [[{ n: 'Camila Lopes', r: 'MG TRIANGULO MINEIRO', q: 17 }, { n: 'Janis Joplin', r: 'RJ BARRA', q: 17 }], [{ n: 'Thaís Cruz', r: 'RJ CAMPOS', q: 19 }, { n: 'Raphael Benedito', r: 'RJ CENTRO', q: 17 }], [{ n: 'Wellyngton Gois', r: 'RJ NITEROI OCEANICA', q: 22 }, { n: 'Raquel Jesus', r: 'RJ SERRANA', q: 19 }]] }
+        ],
+        pos: [{ d: '21/07', e: 'Plantão (99 lojas)' }, { d: '28/07', e: 'Plantão (106 lojas)' }, { d: '04/08', e: 'Plantão (111 lojas)' }, { d: '17/07 – 14/08', e: 'Suporte e monitoramento (28 dias)' }]
+      },
+
+      {
+        label: '5ª Onda', color: '#D85A30', lojas: 286,
+        pre: [
+          { d: '24/07', e: 'Início criação BMs - impl.1', bm: true, bmsub: '45 BMs · DPSP 23 + PedBot 22' },
+          { d: '28/07', e: 'Preparação News' },
+          { d: '31/07', e: 'Início criação BMs - impl.2', bm: true, bmsub: '46 BMs · DPSP 23 + PedBot 23' },
+          { d: '31/07', e: 'Entrega BMs impl.1 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '05/08', e: 'Kick-off + material treinamento' },
+          { d: '05/08', e: 'Treinamento via UC (286 lojas)' },
+          { d: '07/08', e: 'Entrega BMs impl.2 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '07/08', e: 'Início criação BMs - impl.3', bm: true, bmsub: '53 BMs · DPSP 27 + PedBot 26' },
+          { d: '07/08', e: 'Extração UC (1)' }, { d: '10/08', e: 'Extração UC (2)' }, { d: '12/08', e: 'Extração UC (3)' },
+          { d: '13/08', e: 'Sync D-1 impl.1 (89 lojas)', sync: true },
+          { d: '14/08', e: 'Entrega BMs impl.3 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '20/08', e: 'Sync D-1 impl.2 (92 lojas)', sync: true },
+          { d: '27/08', e: 'Sync D-1 impl.3 (105 lojas)', sync: true }
+        ],
+        imp: [
+          { date: '14/08/2026', lojas: 89, bms: { inicio: '24/07', entrega: '31/07', total: 45, dpsp: 23, pedbot: 22 }, sync: '13/08', ags: [[{ n: 'Alessandra Esnal', r: 'SP ITAQUERA', q: 18 }, { n: 'Alex Batista', r: 'SP JARDIM SAO PAULO', q: 18 }], [{ n: 'Airam Duarte', r: 'SP MOOCA', q: 17 }, { n: 'Adriana Rota', r: 'SP SANTANA', q: 18 }], [{ n: 'Bruna Marin', r: 'SP TATUAPE', q: 18 }]] },
+          { date: '21/08/2026', lojas: 92, bms: { inicio: '31/07', entrega: '07/08', total: 46, dpsp: 23, pedbot: 23 }, sync: '20/08', ags: [[{ n: 'Camila Borges', r: 'SP ARICANDUVA', q: 17 }, { n: 'Joao Nogueira', r: 'SP GUARULHOS', q: 19 }], [{ n: 'Juliana Silva', r: 'SP MOGI', q: 18 }, { n: 'Marcelo Rodrigues', r: 'SP SAO MIGUEL', q: 18 }], [{ n: 'Leandro Raimundo', r: 'SP SOROCABA', q: 20 }]] },
+          { date: '28/08/2026', lojas: 105, bms: { inicio: '07/08', entrega: '14/08', total: 53, dpsp: 27, pedbot: 26 }, sync: '27/08', ags: [[{ n: 'Fernando Luchine', r: 'SP AMERICANA', q: 15 }, { n: 'Jaqueline Amati', r: 'SP ATIBAIA', q: 19 }], [{ n: 'Giovana Penariol', r: 'SP CAMPINAS', q: 18 }, { n: 'Mariley Tomazini', r: 'SP IGUATEMI CAMPINAS', q: 20 }], [{ n: 'Rafael Miguel', r: 'SP ITU', q: 15 }, { n: 'Samuel Goncalves', r: 'SP JUNDIAI', q: 18 }]] }
+        ],
+        pos: [{ d: '18/08', e: 'Plantão (89 lojas)' }, { d: '25/08', e: 'Plantão (92 lojas)' }, { d: '01/09', e: 'Plantão (105 lojas)' }, { d: '14/08 – 11/09', e: 'Suporte e monitoramento (28 dias)' }]
+      },
+
+      {
+        label: '6ª Onda', color: '#888780', lojas: 260,
+        pre: [
+          { d: '21/08', e: 'Início criação BMs - impl.1', bm: true, bmsub: '39 BMs · DPSP 20 + PedBot 19' },
+          { d: '25/08', e: 'Preparação News' },
+          { d: '28/08', e: 'Início criação BMs - impl.2', bm: true, bmsub: '46 BMs · DPSP 23 + PedBot 23' },
+          { d: '28/08', e: 'Entrega BMs impl.1 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '02/09', e: 'Kick-off + material treinamento' },
+          { d: '02/09', e: 'Treinamento via UC (260 lojas)' },
+          { d: '04/09', e: 'Início criação BMs - impl.3', bm: true, bmsub: '46 BMs · DPSP 23 + PedBot 23' },
+          { d: '04/09', e: 'Entrega BMs impl.2 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '04/09', e: 'Extração UC (1)' }, { d: '07/09', e: 'Extração UC (2)' }, { d: '09/09', e: 'Extração UC (3)' },
+          { d: '10/09', e: 'Sync D-1 impl.1 (78 lojas)', sync: true },
+          { d: '11/09', e: 'Entrega BMs impl.3 - D-14', ver: true, bmsub: 'início verificação' },
+          { d: '17/09', e: 'Sync D-1 impl.2 (91 lojas)', sync: true },
+          { d: '24/09', e: 'Sync D-1 impl.3 (91 lojas)', sync: true }
+        ],
+        imp: [
+          { date: '11/09/2026', lojas: 78, bms: { inicio: '21/08', entrega: '28/08', total: 39, dpsp: 20, pedbot: 19 }, sync: '10/09', ags: [[{ n: 'Caio Monteiro', r: 'SP SANTOS', q: 16 }, { n: 'Cristiane Cruz', r: 'SP SAO BERNARDO', q: 21 }], [{ n: 'Gledson Floriano', r: 'SP SAO JOSE DOS CAMPOS', q: 22 }], [{ n: 'Fernanda Roberta', r: 'SP VALE DO PARAIBA', q: 19 }]] },
+          { date: '18/09/2026', lojas: 91, bms: { inicio: '28/08', entrega: '04/09', total: 46, dpsp: 23, pedbot: 23 }, sync: '17/09', ags: [[{ n: 'Alan Costa', r: 'BA SSA CENTRO', q: 19 }, { n: 'Rogerio Carvalho', r: 'SP LITORAL NORTE', q: 14 }], [{ n: 'Hocia Silva', r: 'SP LITORAL SUL', q: 17 }, { n: 'Jaques Amorim', r: 'SP SANTO ANDRE', q: 21 }], [{ n: 'Karla Duarte', r: 'SP SAO CAETANO', q: 20 }]] },
+          { date: '25/09/2026', lojas: 91, bms: { inicio: '04/09', entrega: '11/09', total: 46, dpsp: 23, pedbot: 23 }, sync: '24/09', ags: [[{ n: 'Joel Araujo', r: 'BA INTERIOR', q: 13 }, { n: 'Marli Ferreira', r: 'BA SSA METROPOLITANA', q: 16 }], [{ n: 'Catarina Oliveira', r: 'BA SSA NORTE', q: 14 }, { n: 'Tiago Cruz', r: 'BA SSA SUL', q: 16 }], [{ n: 'Malhaine Santos', r: 'PE NORTE', q: 16 }, { n: 'Reinaldo Silva', r: 'PE SUL', q: 16 }]] }
+        ],
+        pos: [{ d: '15/09', e: 'Plantão (78 lojas)' }, { d: '22/09', e: 'Plantão (91 lojas)' }, { d: '29/09', e: 'Plantão (91 lojas)' }, { d: '11/09 – 02/10', e: 'Suporte e monitoramento (21 dias)' }]
+      }
+    ];
+
+    function buildCrono() {
+      if (document.getElementById('crono-content').innerHTML) return;
+      let h = '';
+      WAVES.forEach((w, wi) => {
+        h += `<div class="ow"><div class="oh2"><span class="odot" style="background:${w.color}"></span><span style="font-size:13px;font-weight:500">${w.label}</span><span style="font-size:12px;color:#73726c">${w.lojas} lojas</span></div>
+    <div class="pg">
+      <div class="ph" style="background:#fafaf8"><div class="pht" style="color:#73726c">Pré-implantação</div>`;
+        w.pre.forEach(p => {
+          let dot, lbCls = 'evlb', sub = '';
+          if (p.bm) { dot = 'background:#85b7eb;border:.5px solid #185fa5'; lbCls = 'evlb-bm'; }
+          else if (p.ver) { dot = 'background:#5DCAA5;border:.5px solid #0f6e56'; lbCls = 'evlb-ver'; }
+          else if (p.sync) { dot = 'background:#faeeda;border:.5px solid #f0c080'; }
+          else { dot = 'background:#d3d1c7'; }
+          if (p.bmsub) sub = `<div class="evsub">${p.bmsub}</div>`;
+          h += `<div class="ev"><div class="evd" style="${dot}"></div><div><div class="evdate">${p.d}</div><div class="${lbCls}">${p.e}</div>${sub}</div></div>`;
+        });
+        h += `</div><div class="ph" style="background:#f0f7ff"><div class="pht" style="color:#0c447c">Implantações</div>`;
+        w.imp.forEach(im => {
+          const ng = im.ags.reduce((s, a) => s + a.length, 0);
+          h += `<div class="ib">
+        <div class="ibd">${im.date}</div>
+        <div class="ibl">${im.lojas} lojas · ${ng} GGLs</div>
+        <div class="ib-bm">BMs: criar ${im.bms.inicio} · entregar ${im.bms.entrega} · ${im.bms.total} BMs (DPSP ${im.bms.dpsp} + PedBot ${im.bms.pedbot})</div>
+        <div class="ib-sync">Sync D-1: ${im.sync} · verificação até dia D</div>`;
+          im.ags.forEach((ag, ai) => {
+            if (!ag.length) return;
+            h += `<div class="ev"><div class="evd" style="background:${w.color}"></div><div><div class="evlb" style="font-size:11px">Ag.${ai + 1} ${['08h', '15h', '17h30'][ai]} · ${ag.map(g => g.n + ' (' + g.q + ')').join(' + ')}</div></div></div>`;
+          });
+          h += `</div>`;
+        });
+        h += `</div><div class="ph" style="background:#f4fbf7"><div class="pht" style="color:#27500a">Pós-implantação</div>`;
+        w.pos.forEach(p => {
+          h += `<div class="ev"><div class="evd" style="background:#1D9E75"></div><div><div class="evdate">${p.d}</div><div class="evlb">${p.e}</div></div></div>`;
+        });
+        h += `</div></div></div>`;
+        if (wi < WAVES.length - 1) h += `<div class="sep" style="margin:1rem 0"></div>`;
+      });
+      document.getElementById('crono-content').innerHTML = h;
+    }
+
+    function buildAgendas() {
+      if (document.getElementById('agendas-content').innerHTML) return;
+      let h = '';
+      WAVES.forEach(w => {
+        h += `<div style="margin-bottom:1.5rem">
+      <div style="font-size:13px;font-weight:500;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem">
+        <span style="width:10px;height:10px;border-radius:50%;background:${w.color};display:inline-block;flex-shrink:0"></span>${w.label}
+      </div>`;
+        w.imp.forEach((d, di) => {
+          const ng = d.ags.reduce((s, a) => s + a.length, 0);
+          const id = `ag${w.label.replace(/\s/g, '')}${di}`;
+          h += `<div style="border:1.5px solid #e0dfd6;border-radius:12px;padding:1rem 1.25rem;margin-bottom:8px;background:#fff">
+        <div class="oh" onclick="tog('${id}','ch${id}')">
+          <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+            <span class="oh-title">${d.date}</span>
+            <span class="badge bi">${d.lojas} lojas · ${ng} GGL${ng > 1 ? 's' : ''}</span>
+          </div>
+          <span class="ch" id="ch${id}">▶</span>
+        </div>
+        <div class="ob" id="${id}">
+          <div class="bmbox" style="margin-top:.75rem">
+            <div style="font-size:11px;font-weight:500;color:#185fa5;margin-bottom:.3rem">Criação e entrega dos BMs</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;font-size:11px">
+              <span class="pill" style="background:#dbeeff;color:#185fa5">Início criação: ${d.bms.inicio}</span>
+              <span class="pill" style="background:#dbeeff;color:#185fa5">Entrega D-14: ${d.bms.entrega}</span>
+              <span class="pill" style="background:#dbeeff;color:#185fa5">${d.bms.total} BMs total</span>
+              <span class="pill" style="background:#e6f1fb;color:#0c447c">DPSP: ${d.bms.dpsp}</span>
+              <span class="pill" style="background:#eaf3de;color:#1D9E75">PedBot: ${d.bms.pedbot}</span>
+            </div>
+            <div style="font-size:11px;color:#0f6e56;margin-top:.3rem">Verificação: de ${d.bms.entrega} até ${d.date} - BM saudável já é suficiente para o dia D</div>
+          </div>
+          <div class="syncbox">
+            <div style="font-size:11px;font-weight:500;color:#633806;margin-bottom:.3rem">Sync D-1 - ${d.sync}</div>
+            <div style="font-size:11px;color:#73726c;margin-bottom:.35rem">Opção A: bot autônomo (precisa desenvolver) · Opção B: call agendada com gerente</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <span class="pill" style="background:#fff3cc;color:#633806">Gerente usa número da loja</span>
+              <span class="pill" style="background:#fff3cc;color:#633806">App ativo durante a sync</span>
+              <span class="pill" style="background:#fff3cc;color:#633806">~180 dias · PedBot remoto</span>
+            </div>
+          </div>
+          <div class="g3" style="margin-top:.65rem">`;
+          d.ags.forEach((ag, ai) => {
+            h += `<div class="acard"><span class="atime">${TIMES[ai]}</span>`;
+            if (!ag.length) {
+              h += `<div class="afree"><span style="font-size:11px;color:#b4b2a9">livre</span></div>`;
+            } else {
+              ag.forEach(g => {
+                h += `<div style="border-left:3px solid ${w.color};border-radius:0 6px 6px 0;padding:.4rem .65rem;margin-bottom:.3rem;background:#f5f5f3">
+              <div style="font-size:12px;font-weight:500">${g.n}</div>
+              <div style="font-size:11px;color:#5f5e5a">${g.r} · ${g.q} gerentes</div>
+            </div>`;
+              });
+              const tot = ag.reduce((s, g) => s + g.q, 0);
+              h += `<div style="font-size:11px;color:#b4b2a9;margin-top:.3rem;padding-top:.3rem;border-top:.5px solid #e0dfd6">${ag.length} GGL${ag.length > 1 ? 's' : ''} · ${tot} gerentes</div>`;
+            }
+            h += `</div>`;
+          });
+          h += `</div></div></div></div>`;
+        });
+        h += `</div>`;
+      });
+      document.getElementById('agendas-content').innerHTML = h;
+    }
+
+    function sp(id, el) {
+      document.querySelectorAll('.section-page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+      el.classList.add('active');
+      if (id === 'crono') buildCrono();
+      if (id === 'agendas') buildAgendas();
+    }
+
     function tog(b, c) {
       var bo = document.getElementById(b), ch = document.getElementById(c);
       var op = bo.classList.toggle('open');
-      ch.classList.toggle('open', op);
+      if (ch) ch.classList.toggle('open', op);
     }
   </script>
 </body>
